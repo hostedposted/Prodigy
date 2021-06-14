@@ -1,8 +1,13 @@
 [tool.poetry]
-name = "prodigy"
+name = "prodigy-api"
+readme = "README.md"
+packages = [
+    {include = "prodigy"}
+]
 version = "1.0.0"
 description = "Python Package to Hack Prodigy The Math Game"
 authors = ["hostedposted <hostedpostedsite@gmail.com>"]
+repository = "https://github.com/hostedposted/Prodigy"
 license = "MIT"
 
 [tool.poetry.dependencies]
