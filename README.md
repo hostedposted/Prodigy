@@ -1,3 +1,3 @@
 # Prodigy
 
-This is a Python Package to Hack Prodigy The Math Game.
+This is a NPM package to make developing with Prodigy's API easier!
