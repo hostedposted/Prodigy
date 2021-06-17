@@ -7,5 +7,4 @@ export const getGameStatus = async({ log }: { log?: boolean } = {}) => {
     const gameStatus = JSON.parse((await gameFetch.text()).match(/(?<=gameStatusDataStr = ').+(?=')/)![0])
     if (!gameStatus) throw new Error(`Failed to parse game status.`);
     return gameStatus
-    
 }

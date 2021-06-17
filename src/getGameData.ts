@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { getGameStatus } from ".";
+import { getGameStatus } from "./getGameStatus";
 
 export const getGameData = async({ log }: { log?: boolean } = {}) => {
     const gameStatus = await getGameStatus({ log: log })
