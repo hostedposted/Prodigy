@@ -1,3 +1,3 @@
-export declare const getPlayerData: (token: string, userID: string, { log }?: {
+export declare const getPlayerData: (token: string, userID?: string | undefined, { log }?: {
     log?: boolean | undefined;
-}) => Promise<{}>;
+}) => Promise<any>;
