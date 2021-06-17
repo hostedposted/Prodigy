@@ -37,7 +37,10 @@ const cookiefetch: (url: RequestInfo, init?: RequestInit | undefined) => Promise
 
 export const tokenify = async(username: string, password: string, { log }: { log?: boolean } = {}) => {
 	if (log) console.log("Fetching login route...");
-	const formSite: Response = await cookiefetch("https://sso.prodigygame.com/game/login");
+    const url = Object.fromEntries((await cookiefetch("https://sso.prodigygame.com/game/login", {
+        redirect: "manual"
+    })).headers).location
+    const formSite: Response = await cookiefetch(url)
 	if (!formSite.ok) throw new Error(`The form page request was unable to be fetched with a code of ${formSite.status}.`);
 	const site = await formSite.text();
 	const dom = new JSDOM.JSDOM(site);
