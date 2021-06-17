@@ -1,0 +1,3 @@
+1. Make function in /src/file.ts
+2. Update src/index.ts
+3. Run tsc in main directory
