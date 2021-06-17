@@ -1,7 +1,7 @@
 import base64
 import json
 from typing import Any, Dict, List
-from prodigy import gameData, gameStatus, player, tokenify, updatePlayer
+from prodigy import gameData, gameStatus, player, tokenify, update_player
 
 class Prodigy:
     def __init__(self, username: str, password: str) -> None:
@@ -15,7 +15,7 @@ class Prodigy:
         return player(self.token())
     def token(self) -> str:
         return tokenify(self.username, self.password)["token"]
-    def updatePlayer(self, data) -> str:
-        return updatePlayer(self.token(), data)
+    def update_player(self, data) -> str:
+        return update_player(self.token(), data)
     def userID(self) -> int:
         return json.loads(base64.b64decode(self.token().split(".")[1]))["content"]["userID"]

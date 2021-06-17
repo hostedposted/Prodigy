@@ -1,0 +1,34 @@
+site_name: Prodigy API Wrapper In Python
+site_url: https://prodigy-api.readthedocs.io/en/latest/
+repo_url: https://github.com/hostedposted/Prodigy
+
+nav:
+    - Home: index.md
+    - Python:
+        - Python: python/index.md
+        - Tokenify: python/tokenify.md
+        - Player Data:
+            - Getting Player Data: python/player.md
+            - Updating Player Data: python/update_player.md
+    - JavaScript:
+        - JavaScript: javascript/index.md
+
+plugins:
+    - search
+    - git-revision-date-localized:
+        type: datetime
+        enable_creation_date: true
+        timezone: EST
+
+theme:
+    name: "material"
+    palette:
+        scheme: slate
+        primary: red
+        accent: red
+
+extra_javascript:
+    - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js
+    - config.js
+extra_css:
+    - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/vs2015.min.css
