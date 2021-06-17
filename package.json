@@ -5,7 +5,6 @@
   "files": [
     "./lib/**/*"
   ],
-  "main": "./lib/index.js",
   "scripts": {
     "build": "tsc"
   },
