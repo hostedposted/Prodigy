@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-export const updatePlayerData = async(userID: string, token: string, data: JSON, { log }: { log?: boolean } = {}) => {
+export const updatePlayerData = async(token: string, userID: string, data: JSON, { log }: { log?: boolean } = {}) => {
     if (log) console.log("Updating player data...")
     const updateres = await (await fetch(`https://api.prodigygame.com/game-api/v3/characters/${userID}`, {
     headers: {

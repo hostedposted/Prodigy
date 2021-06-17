@@ -1,3 +1,3 @@
-export declare const updatePlayerData: (userID: string, token: string, data: JSON, { log }?: {
+export declare const updatePlayerData: (token: string, userID: string, data: JSON, { log }?: {
     log?: boolean | undefined;
 }) => Promise<void>;
