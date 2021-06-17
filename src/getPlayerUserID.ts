@@ -1,1 +1,1 @@
-export const getPlayerUserID = async (token: string, { log }: { log?: boolean } = {}) => JSON.parse(Buffer.from(token.split(".")[1], "base64").toString("ascii")).content.userID
+export const getPlayerUserID = async (token: string, { log }: { log?: boolean } = {}) => JSON.parse(Buffer.from(token.split(".")[1], "base64").toString("ascii")).content.userID;
