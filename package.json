@@ -4,9 +4,9 @@
   "description": "This is a NPM package to make developing with Prodigy's API easier!",
   "type": "module",
   "files": [
-    "lib/**/*"
+    "./lib/**/*"
   ],
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "build": "tsc"
   },
