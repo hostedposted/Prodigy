@@ -4,3 +4,4 @@ export { getGameStatus } from "./getGameStatus";
 export { getGameData } from "./getGameData";
 export { updatePlayerData } from "./updatePlayerData"
 export { getPlayerUserID } from "./getPlayerUserID"
+export { getPlayerFriendRequests } from "./getPlayerFriendRequests"
