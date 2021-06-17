@@ -1,29 +1,31 @@
 import json
 import re
-from typing import Any, TypedDict
+from typing import Any, List, Literal, Type, TypedDict, Union
 from urllib.parse import parse_qs, urlencode, urlparse
 import requests
 from bs4 import BeautifulSoup
 
 class TokenifyOutput(TypedDict):
-    objectID: int
-    curriculumOverride: Any
-    curriculumTreeID: str
-    lastVisited: str
-    registerDate: str
-    classIDs: list
-    ownerIDs: list
-    primaryParentID: Any
-    isTowerTownEnabled: bool
-    placementTestID: Any
-    goalId: Any
-    gradeId: str
-    grade: int
-    userID: int
-    usertype: str
-    authToken: str
-    name: str
-    token: str
+	authToken: str
+	classIDs: List[int]
+	curriculumOverride: Any
+	curriculumTreeID: int
+	goalId: Any
+	grade: int
+	isMember: Literal[0, 1]
+	isTowerTownEnabled: bool
+	lastVisited: str
+	memberEndDate: Union[str, Type[None]]
+	memberStartDate: Union[str, Type[None]]
+	name: str
+	objectID: int
+	ownerIDs: List[int]
+	parentEmail: Union[str, Type[None]]
+	placementTestID: int
+	registerDate: str
+	token: str
+	userID: int
+	usertype: str
 
 def tokenify(username: str, password: str) -> TokenifyOutput:
     s = requests.Session()
