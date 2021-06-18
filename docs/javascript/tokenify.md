@@ -10,7 +10,7 @@ const prodigy = require("prodigy")
 
 (async function() {
 	let player = await prodigy.tokenify("USERNAME", "PASSWORD")
-  console.log(player.token)
+	console.log(player.token)
 })();
 ```
 
