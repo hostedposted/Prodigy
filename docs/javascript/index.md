@@ -20,4 +20,4 @@ npm install hostedposted/Prodigy#JavaScript
 
 This module contains these functions:
 
-**Coming Soon**!
+- [tokenify](tokenify.md)
