@@ -12,6 +12,7 @@ nav:
             - Updating Player Data: python/update_player.md
     - JavaScript:
         - JavaScript: javascript/index.md
+        - Tokenify: javascript/tokenify.md
 
 plugins:
     - search
