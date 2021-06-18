@@ -14,6 +14,8 @@ class GameDataObject(TypedDict):
     metadata: dict
     name: str
 
-def gameData() -> Dict[str, List[GameDataObject]]:
-    gameDataVersion = gameStatus()["prodigyGameFlags"]["gameDataVersion"]
+def gameData(log: bool = False) -> Dict[str, List[GameDataObject]]:
+    gameDataVersion = gameStatus(log)["prodigyGameFlags"]["gameDataVersion"]
+    if log:
+        print("Fetching game version...")
     return s.get(f"https://cdn.prodigygame.com/game/data/production/{gameDataVersion}/data.json").json()
