@@ -21,3 +21,4 @@ npm install hostedposted/Prodigy#JavaScript
 This module contains these functions:
 
 - [tokenify()](tokenify.md)
+- [getPlayerData()](getPlayerData.md)

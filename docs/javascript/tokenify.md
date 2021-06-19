@@ -9,8 +9,8 @@ Here is an example:
 const prodigy = require("prodigy-api");
 
 (async function() {
-	let player = await prodigy.tokenify("USERNAME", "PASSWORD");
-	console.log(player.token);
+	let player = await prodigy.tokenify("USERNAME", "PASSWORD"); // Get your JWT token.
+	console.log(player.token); // Log your JWT token to console.
 })();
 ```
 
@@ -19,7 +19,7 @@ All methods must be awaited.
 ## Parameters
 
 Tokenify requires two parameters.
-Being username and password.
+These being the username and password of your account.
 
 Each of these should be strings.
 
@@ -27,7 +27,7 @@ There are no keywords.
 
 ## Output
 
-Tokenify output's a dictionary following this schema:
+Tokenify output is a dictionary following this schema:
 ```json
 {
     "$schema": "http://json-schema.org/schema#",
