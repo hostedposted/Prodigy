@@ -6,11 +6,11 @@ Tokenify is a tool for getting your JWT token and other info.
 
 Here is an example:
 ```js
-const prodigy = require("prodigy-api")
+const prodigy = require("prodigy-api");
 
 (async function() {
-	let player = await prodigy.tokenify("USERNAME", "PASSWORD")
-	console.log(player.token)
+	let player = await prodigy.tokenify("USERNAME", "PASSWORD");
+	console.log(player.token);
 })();
 ```
 
