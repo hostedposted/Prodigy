@@ -1,18 +1,22 @@
-site_name: Prodigy API Wrapper In Python
+site_name: Prodigy API Wrapper
 site_url: https://prodigy.readthedocs.io/en/latest/
 repo_url: https://github.com/hostedposted/Prodigy
 
 nav:
     - Home: index.md
     - Python:
-        - Introduction: python/index.md
+        - Python: python/index.md
         - Tokenify: python/tokenify.md
         - Player Data:
             - Getting Player Data: python/player.md
             - Updating Player Data: python/update_player.md
+        - GameData: python/gameData.md
+        - GameStatus: python/gameStatus.md
     - JavaScript:
-        - Introduction: javascript/index.md
+        - JavaScript: javascript/index.md
         - Tokenify: javascript/tokenify.md
+        - Player Data:
+            - Getting Player Data: javascript/player.md
 
 plugins:
     - search

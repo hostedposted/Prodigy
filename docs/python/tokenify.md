@@ -20,6 +20,8 @@ Each of these should be strings.
 
 There are no keywords.
 
+Tokenify does not accept log.
+
 ## Output
 
 Tokenify output's a dictionary following this schema:

@@ -13,12 +13,15 @@ Now for installing the module.
 You can install the module with this:
 
 ```shell
-npm install hostedposted/Prodigy#JavaScript
+npm install prodigy-api
 ```
 
 ## Functions
 
 This module contains these functions:
 
-- [tokenify()](tokenify.md)
-- [getPlayerData()](getPlayerData.md)
+- [tokenify](tokenify.md)
+- [getPlayerData](player.md)
+
+Most functions need to be awaited.
+If the function does not need to be awaited the documentation for that function will state it.

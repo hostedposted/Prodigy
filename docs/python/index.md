@@ -27,3 +27,10 @@ This module contains these functions:
 - [tokenify](tokenify.md)
 - [player](player.md)
 - [update_player](update_player.md)
+- [gameData](gameData.md)
+- [gameStatus](gameStatus.md)
+- [get_asset](get_asset.md)
+
+Most of the functions accept a log option which you can pass by adding ``log = True`` as a keyword.
+
+If the function does not allow it, it will be said in that function's documentation.

@@ -9,12 +9,10 @@ Here is an example:
 const prodigy = require("prodigy-api");
 
 (async function() {
-	let player = await prodigy.tokenify("USERNAME", "PASSWORD"); // Get your JWT token.
+	let player = await prodigy.tokenify("username", "password"); // Get your JWT token.
 	console.log(player.token); // Log your JWT token to console.
 })();
 ```
-
-All methods must be awaited.
 
 ## Parameters
 

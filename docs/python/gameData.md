@@ -1,9 +1,33 @@
-import os
-from typing import List, TypedDict
-import requests_cache
-from prodigy.gameStatus import gameStatus
+# gameData
 
-s = requests_cache.CachedSession(os.path.join(os.path.dirname(os.path.realpath(__file__)), "cache"))
+The gameData stores info on every item in prodigy.
+
+For some reason prodigy gives every item a gender.
+I have no idea why.
+
+## Examples
+
+Here is an example:
+```py
+from prodigy import gameData
+
+gameData = gameData()
+
+print("The name of the first boot in the game is:", gameData["boots"][0]["name"])
+```
+
+## Parameters
+
+gameData accepts no parameters.
+
+## Output
+
+This outputs prodigy's gameData.
+
+Prodigy's gameData follows something like this:
+
+```py
+from typing import List, TypedDict
 
 class GameDataObject(TypedDict):
     ID: int
@@ -72,9 +96,4 @@ class GameData(TypedDict):
     titan: List[GameDataObject]
     ui: List[GameDataObject]
     weapon: List[GameDataObject]
-
-def gameData(log: bool = False) -> GameData:
-    gameDataVersion = gameStatus(log)["prodigyGameFlags"]["gameDataVersion"]
-    if log:
-        print("Fetching game version...")
-    return s.get(f"https://cdn.prodigygame.com/game/data/production/{gameDataVersion}/data.json").json()
+```
