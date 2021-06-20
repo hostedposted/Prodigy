@@ -4,7 +4,7 @@ readme = "README.md"
 packages = [
     {include = "prodigy"}
 ]
-version = "2.0.0"
+version = "2.0.1"
 description = "Python Package to Hack Prodigy The Math Game"
 authors = ["hostedposted <hostedpostedsite@gmail.com>"]
 repository = "https://github.com/hostedposted/Prodigy"
