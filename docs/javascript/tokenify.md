@@ -9,8 +9,9 @@ Here is an example:
 const prodigy = require("prodigy-api");
 
 (async function() {
-	let player = await prodigy.tokenify("username", "password"); // Get your JWT token.
-	console.log(player.token); // Log your JWT token to console.
+	let player = await prodigy.tokenify("username", "password"); // Get your login data.
+    let token = player.token; // Get JWT token out of login data.
+	console.log(token); // Log your JWT token to console.
 })();
 ```
 
