@@ -17,6 +17,7 @@ nav:
         - Tokenify: javascript/tokenify.md
         - Player Data:
             - Getting Player Data: javascript/player.md
+            - Setting Player Data: javascript/update_player.md
 
 plugins:
     - search
