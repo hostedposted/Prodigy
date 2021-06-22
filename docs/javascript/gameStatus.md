@@ -1,6 +1,6 @@
-# GetgameStatus
+# GetGameStatus
 
-GetgameStatus contains version's for prodigy and some other things.
+GetGameStatus contains version's for prodigy and some other things.
 
 ## Examples
 
@@ -16,7 +16,7 @@ const prodigy = require("prodigy-api");
 
 ## Parameters
 
-GetgameStatus accepts no parameters.
+GetGameStatus accepts no parameters.
 
 ## Output
 
