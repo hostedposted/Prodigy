@@ -24,6 +24,7 @@ This module contains these functions:
 - [getPlayerData](player.md)
 - [setPlayerData](update_player.md)
 - [getGameStatus](gameStatus.md)
+- [getGameData](gameData.md)
 
 Most functions need to be awaited.
 If the function does not need to be awaited the documentation for that function will state it.

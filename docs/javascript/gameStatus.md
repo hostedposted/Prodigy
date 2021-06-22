@@ -1,6 +1,6 @@
 # GetGameStatus
 
-GetGameStatus contains version's for prodigy and some other things.
+GetGameStatus contains versions for prodigy and some other things.
 
 ## Examples
 

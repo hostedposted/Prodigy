@@ -18,6 +18,7 @@ nav:
         - Player Data:
             - Getting Player Data: javascript/player.md
             - Setting Player Data: javascript/update_player.md
+        - GameData: javascript/gameData.md
         - GameStatus: javascript/gameStatus.md
 
 plugins:
