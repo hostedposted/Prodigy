@@ -12,7 +12,7 @@ const prodigy = require("prodigy-api");
     let data = {};
     let player = await prodigy.tokenify("USERNAME", "PASSWORD"); // Get your player login data.
     let token = player.token; // Get JWT token out of login data.
-    prodigy.updatePlayerData(token, data);
+    prodigy.updatePlayerData(token, data); // Push the edited player JSON data back into the account.
 })();
 ```
 Do not do this! Setting player data to an empty JSON object will reset your account.
