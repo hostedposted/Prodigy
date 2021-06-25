@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
 import JSDOM from "jsdom";
 import type { RequestInfo, RequestInit } from "node-fetch";
-import fetch from "node-fetch";
+import nodeFetch from "node-fetch";
 import fetchCookie from "fetch-cookie";
 import { URLSearchParams } from "url";
+
+const fetch = typeof window === "undefined" ? nodeFetch : window.fetch
 
 interface TokenResponse {
     expires_in: string,

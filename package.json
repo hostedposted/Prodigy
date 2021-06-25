@@ -1,6 +1,6 @@
 {
   "name": "prodigy-api",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "This is a NPM package to make developing with Prodigy's API easier!",
   "main": "lib/index.js",
   "scripts": {
