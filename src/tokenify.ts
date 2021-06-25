@@ -5,7 +5,7 @@ import nodeFetch from "node-fetch";
 import fetchCookie from "fetch-cookie";
 import { URLSearchParams } from "url";
 
-const fetch = typeof window === "undefined" ? nodeFetch : window.fetch
+const fetch = typeof window === "undefined" ? nodeFetch : window.fetch;
 
 interface TokenResponse {
     expires_in: string,
@@ -37,7 +37,12 @@ interface MasterResponse {
     usertype: string;
 }
 
-const cookiefetch: (url: RequestInfo, init?: RequestInit | undefined) => Promise<Response> = fetchCookie(fetch) as any;
+const cookiefetch: (url: RequestInfo, init?: RequestInit | undefined) => Promise<Response> = typeof window === "undefined"
+    ? fetchCookie(fetch)
+    : (url, init?) => fetch(url, {
+        ...init,
+        credentials: "include"
+    });
 
 export const tokenify = async (username: string, password: string, { log }: { log?: boolean } = {}) => {
     if (log) console.log("Fetching login route...");
