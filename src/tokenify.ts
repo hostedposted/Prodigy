@@ -67,7 +67,7 @@ export const tokenify = async (username: string, password: string, { log }: { lo
     });
     if (!login.ok && !login.status.toString().startsWith("3")) throw new Error(`Initial login request was unsuccessful with code ${login.status}.`);
     if (log) console.log(`Initial login request done with a code of ${login.status}.`);
-    const playLogin = await cookiefetch(login.headers.get("location") ?? "", { redirect: "follow" });
+    const playLogin = await cookiefetch(login.headers.get("location") || "", { redirect: "follow" });
     if (!playLogin.ok && !playLogin.status.toString().startsWith("3")) throw new Error(`Client ID request failed with a code of ${playLogin.status}`);
     if (log) console.log(`Client ID request done with a code of ${playLogin.status}.`);
     const clientId = (await playLogin.text()).match(/var client_id = '([0-9a-f]+)';/)?.[1];
@@ -86,12 +86,12 @@ export const tokenify = async (username: string, password: string, { log }: { lo
     });
     if (!tokenLogin.ok && !tokenLogin.status.toString().startsWith("3")) throw new Error(`First authentication request failed with a code of ${tokenLogin.status}.`);
     if (log) console.log(`First token request done with a code of ${tokenLogin.status}.`);
-    const secondTokenLogin = await cookiefetch(tokenLogin.headers.get("location") ?? "", {
+    const secondTokenLogin = await cookiefetch(tokenLogin.headers.get("location") || "", {
         redirect: "manual"
     });
     if (!secondTokenLogin.ok && !secondTokenLogin.status.toString().startsWith("3")) throw new Error(`Second authentication request failed with a code of ${secondTokenLogin.status}.`);
     if (log) console.log(`Second token request done with a code of ${secondTokenLogin.status}.`);
-    const tokenProp = new URL((secondTokenLogin.headers.get("location") ?? "").replace("#", "?")).searchParams;
+    const tokenProp = new URL((secondTokenLogin.headers.get("location") || "").replace("#", "?")).searchParams;
     const tokenInit: TokenResponse = Object.fromEntries(tokenProp.entries()) as any;
     const master = await fetch("https://api.prodigygame.com/game-auth-api/v4/user", {
         headers: {
