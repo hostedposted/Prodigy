@@ -26,6 +26,7 @@ This module contains these functions:
 - [getGameData](gameData.md)
 - [getGameStatus](gameStatus.md)
 - [getPlayerFriendRequests](get_requests.md)
+- [updatePlayerFriendRequests](update_requests.md)
 
 Most functions need to be awaited.
 If the function does not need to be awaited the documentation for that function will state it.

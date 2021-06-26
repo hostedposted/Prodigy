@@ -19,7 +19,8 @@ nav:
           - Getting Player Data: javascript/player.md
           - Setting Player Data: javascript/update_player.md
       - Friends Data:
-          - Getting friend requests: javascript/get_requests.md
+          - Getting Friend Requests: javascript/get_requests.md
+          - Settings Friend Requests.md: javascript/update_requests.md
       - GameData: javascript/gameData.md
       - GameStatus: javascript/gameStatus.md
 
