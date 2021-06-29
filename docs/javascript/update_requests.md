@@ -11,7 +11,7 @@ const prodigy = require("prodigy-api");
 
 (async function () {
   let friendID = 43294302; // Get your friend's userid.
-  let tokenify = await prodigy.tokenify("BuddyR11", "AGR2006"); // Get your login data.
+  let tokenify = await prodigy.tokenify("username", "password"); // Get your login data.
   let token = tokenify.token; // Parse your token out of login data.
   let userID = await prodigy.getPlayerUserID(token); // Get your userid out of token.
   let newfriend = await prodigy.updatePlayerFriendRequests(token, userID, friendID); // Post friend request to your friends userid.
