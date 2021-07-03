@@ -1,14 +1,37 @@
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function eraseCookie(name) {   
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 if (!window.location.href.includes("login.html")) {
     if (
-        localStorage.getItem("username") === null ||
-        localStorage.getItem("password") === null
+        getCookie("username") === null ||
+        getCookie("password") === null
     ) {
         window.location.href = "/login.html";
     }
 } else {
     if (
-        localStorage.getItem("username") !== null ||
-        localStorage.getItem("password") !== null
+        getCookie("username") !== null ||
+        getCookie("password") !== null
     ) {
         window.location.href = "/index.html";
     }
@@ -66,8 +89,8 @@ async function login(event) {
             "Please enter a username and password!",
             "error"
         );
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
+    setCookie("username", username, 7);
+    setCookie("password", password, 7);
     const data = await tokenify(username, password);
     if (data === false) {
         localStorage.removeItem("username");
@@ -235,8 +258,8 @@ function popup(title, desc, status) {
 async function init() {
     window.gamedata = await getGameData();
     await load_names();
-    window.username = localStorage.getItem("username");
-    window.password = localStorage.getItem("password");
+    window.username = getCookie("username");
+    window.password = getCookie("password");
     window.token = await tokenify(window.username, window.password);
     document.getElementById("username").innerHTML = window.username;
     await load_defaults();
