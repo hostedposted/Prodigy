@@ -136,32 +136,38 @@ async function load_names() {
 }
 
 async function save() {
+    let saveButton = document.getElementById("save");
     let levelSelector = document.getElementById("levelSelector");
     let goldSelector = document.getElementById("goldSelector");
-    if (!Number(levelSelector.value))
+    if (!Number(levelSelector.value)){
         return popup(
             "Save Error",
-            "Your level must be set and a number!",
+            "Your level must be set and be a number!",
             "error"
         );
-    if (levelSelector.value < 0)
+    }
+    if (levelSelector.value < 0) {
         return popup(
             "Save Error",
             "Your level must be a positive number!",
             "error"
         );
-    if (!Number(goldSelector.value))
+    }
+    if (!Number(goldSelector.value)) {
         return popup(
             "Save Error",
-            "Your gold must be set and a number!",
+            "Your gold must be set and be a number!",
             "error"
         );
-    if (goldSelector.value < 0)
+    }
+    if (goldSelector.value < 0) {
         return popup(
             "Save Error",
             "Your gold must be a positive number!",
             "error"
         );
+    }
+    saveButton.className = "ui teal loading button";
     const { token } = window.token;
     const playerRequest = await fetch(`https://prodigy-api.hostedposted.com/player/`, {
         headers: {
@@ -191,6 +197,7 @@ async function save() {
         }
     );
     popup("Success!", "Your changes have been saved!", "success");
+    saveButton.className = "ui teal button";
 }
 
 function logout() {
