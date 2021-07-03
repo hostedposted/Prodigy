@@ -1,16 +1,16 @@
-if (!document.location.href.includes("login.html")) {
+if (!window.location.href.includes("login.html")) {
     if (
         localStorage.getItem("username") === null ||
         localStorage.getItem("password") === null
     ) {
-        document.location.href = "/login.html";
+        window.location.href = "/login.html";
     }
 } else {
     if (
         localStorage.getItem("username") !== null ||
         localStorage.getItem("password") !== null
     ) {
-        document.location.href = "/index.html";
+        window.location.href = "/index.html";
     }
 }
 
@@ -74,7 +74,7 @@ async function login(event) {
         localStorage.removeItem("password");
         return popup("Login Error", "Invalid username or password!", "error");
     }
-    document.location.href = "/index.html";
+    window.location.href = "/index.html";
 }
 
 async function load_names() {
@@ -173,7 +173,7 @@ async function save() {
 function logout() {
     localStorage.removeItem("username");
     localStorage.removeItem("password");
-    document.location.href = "/login.html";
+    window.location.href = "/login.html";
 }
 
 async function getGameData() {
