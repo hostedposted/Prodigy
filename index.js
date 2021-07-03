@@ -194,8 +194,8 @@ async function save() {
 }
 
 function logout() {
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
+    eraseCookie("username");
+    eraseCookie("password");
     window.location.href = "/login.html";
 }
 
