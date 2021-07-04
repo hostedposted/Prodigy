@@ -93,8 +93,8 @@ async function login(event) {
     setCookie("password", password, 7);
     const data = await tokenify(username, password);
     if (data === false) {
-        localStorage.removeItem("username");
-        localStorage.removeItem("password");
+        eraseCookie("username");
+        eraseCookie("password");
         return popup("Login Error", "Invalid username or password!", "error");
     }
     window.location.href = "/index.html";
