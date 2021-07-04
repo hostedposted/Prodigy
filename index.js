@@ -97,7 +97,7 @@ async function login(event) {
         eraseCookie("password");
         return popup("Login Error", "Invalid username or password!", "error");
     }
-    document.location.assign(location.origin + "/login.html")
+    document.location.assign(location.origin + "/index.html")
 }
 
 async function load_names() {
