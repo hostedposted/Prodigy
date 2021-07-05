@@ -240,7 +240,7 @@ async function getGameData() {
         }
     );
     let gameStatus = JSON.parse(
-        (await gameFetch.text()).match(/(?<=gameStatusDataStr = ').+(?=#)/)[0]
+        (await gameFetch.text()).match(/(?<=gameStatusDataStr = ').+(?=')/)[0]
     );
     let gameDataVersion = gameStatus.prodigyGameFlags.gameDataVersion;
     let gameDataFetch = await fetch(
