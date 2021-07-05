@@ -64,7 +64,11 @@ async function load_defaults() {
     document.getElementById("firstNameSelector").selectedIndex = Array.from(document.getElementById("firstNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.first-1].data.value);
     document.getElementById("middleNameSelector").selectedIndex = Array.from(document.getElementById("middleNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.middle-1].data.value);
     document.getElementById("lastNameSelector").selectedIndex = Array.from(document.getElementById("lastNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.last-1].data.value);
-    document.getElementById("nickNameSelector").selectedIndex = Array.from(document.getElementById("nickNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.nickname[playerData.appearance.name.nick-1].data.value.replace("{first}", "{firstname}"));
+    if (playerData.appearance.name?.nick) {
+        document.getElementById("nickNameSelector").selectedIndex = Array.from(document.getElementById("nickNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.nickname[playerData.appearance.name.nick-1].data.value.replace("{first}", "{firstname}"));
+    } else {
+        document.getElementById("nickNameSelector").selectedIndex = document.getElementById("nickNameSelector").options.length - 1;
+    }
 }
 
 async function tokenify(username, password) {
@@ -144,6 +148,10 @@ async function load_names() {
         option.innerHTML = nickNames[i].data.value.replace("{first}", "{firstname}");
         nickNameSelector.appendChild(option);
     }
+    let option = document.createElement("option");
+    option.value = "None";
+    option.innerHTML = "None"
+    nickNameSelector.appendChild(option);
 }
 
 async function save() {
@@ -218,35 +226,8 @@ function logout() {
 }
 
 async function getGameData() {
-    let gameFetch = await fetch(
-        "https://prodigy-api.hostedposted.com/proxy/play.prodigygame.com/play",
-        {
-            headers: {
-                accept: "*/*",
-                "accept-language": "en-US,en;q=0.9",
-                "sec-ch-ua":
-                    '" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"',
-                "sec-ch-ua-mobile": "?0",
-                "sec-fetch-dest": "empty",
-                "sec-fetch-mode": "cors",
-                "sec-fetch-site": "cross-site",
-            },
-            cache: "no-cache",
-            referrerPolicy: "strict-origin-when-cross-origin",
-            body: null,
-            method: "GET",
-            mode: "cors",
-            credentials: "omit",
-        }
-    );
-    let gameStatus = JSON.parse(
-        (await gameFetch.text()).match(/(?<=gameStatusDataStr = ').+(?=')/)[0]
-    );
-    let gameDataVersion = gameStatus.prodigyGameFlags.gameDataVersion;
     let gameDataFetch = await fetch(
-        "https://prodigy-api.hostedposted.com/proxy/cdn.prodigygame.com/game/data/production/" +
-            gameDataVersion +
-            "/data.json",
+        "https://prodigy-api.hostedposted.com/gameData",
         {
             headers: {
                 accept: "*/*",
