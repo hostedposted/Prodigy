@@ -47,10 +47,6 @@ async function init() {
     await load_defaults();
 }
 
-function login_init() {
-    document.getElementById("form").addEventListener("submit", login);
-}
-
 
 async function load_defaults() {
     const { token } = window.token;
