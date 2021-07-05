@@ -37,6 +37,21 @@ if (!window.location.href.includes("login.html")) {
     }
 }
 
+async function init() {
+    window.gamedata = await getGameData();
+    await load_names();
+    window.username = getCookie("username");
+    window.password = getCookie("password");
+    window.token = await tokenify(window.username, window.password);
+    document.getElementById("username").innerHTML = window.username;
+    await load_defaults();
+}
+
+function login_init() {
+    document.getElementById("form").addEventListener("submit", login);
+}
+
+
 async function load_defaults() {
     const { token } = window.token;
     const playerData = await (
@@ -262,16 +277,3 @@ function popup(title, desc, status) {
     Swal.fire(title, desc, status);
 }
 
-async function init() {
-    window.gamedata = await getGameData();
-    await load_names();
-    window.username = getCookie("username");
-    window.password = getCookie("password");
-    window.token = await tokenify(window.username, window.password);
-    document.getElementById("username").innerHTML = window.username;
-    await load_defaults();
-}
-
-function login_init() {
-    document.getElementById("form").addEventListener("submit", login);
-}
