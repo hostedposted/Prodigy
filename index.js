@@ -96,6 +96,7 @@ async function tokenify(username, password) {
 
 async function login(event) {
     event.preventDefault();
+    console.log('ok')
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     if (!username || !password)
