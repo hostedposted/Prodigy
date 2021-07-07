@@ -95,8 +95,8 @@ async function tokenify(username, password) {
 }
 
 async function login(event) {
+    const submitButton = document.getElementById("submit");
     event.preventDefault();
-    console.log('ok')
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     if (!username || !password)
@@ -105,12 +105,14 @@ async function login(event) {
             "Please enter a username and password!",
             "error"
         );
+    submitButton.className = "fluid ui primary loading button";
     setCookie("username", username, 7);
     setCookie("password", password, 7);
     const data = await tokenify(username, password);
     if (data === false) {
         eraseCookie("username");
         eraseCookie("password");
+        submitButton.className = "fluid ui primary button";
         return popup("Login Error", "Invalid username or password!", "error");
     }
     window.location.href = "/index.html"
