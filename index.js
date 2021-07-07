@@ -106,6 +106,8 @@ async function login(event) {
             "error"
         );
     submitButton.className = "fluid ui primary loading button";
+    setCookie("username", username, 7);
+    setCookie("password", password, 7);
     const data = await tokenify(username, password);
     if (data === false) {
         eraseCookie("username");
@@ -113,9 +115,6 @@ async function login(event) {
         submitButton.className = "fluid ui primary button";
         return popup("Login Error", "Invalid username or password!", "error");
     }
-
-    setCookie("username", username, 7);
-    setCookie("password", password, 7);
     window.location.href = "/index.html"
 }
 
