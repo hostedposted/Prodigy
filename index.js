@@ -57,6 +57,16 @@ async function load_defaults() {
             },
         })
     ).json();
+    if (playerData.data === null) {
+        removeCookie("username");
+        removeCookie("password");
+        await Swal.fire(
+            "Error",
+            "Please complete tutorial before using the dashboard.",
+            "error"
+        )
+        return window.location.href = "/login.html";
+    }
     document.getElementById("levelSelector").value = playerData.data?.level ?? 1;
     document.getElementById("goldSelector").value = playerData.data?.gold ?? 0;
     document.getElementById("loading").style.display = "none";
