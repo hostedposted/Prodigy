@@ -35,7 +35,7 @@ interface MasterResponse {
     usertype: string;
 }
 
-const cookiefetch: (url: RequestInfo, init?: RequestInit | undefined) => Promise<Response> = fetchCookie(fetch)
+const cookiefetch: typeof fetch = fetchCookie(fetch);
 
 export const tokenify = async (username: string, password: string, { log }: { log?: boolean } = {}) => {
     if (log) console.log("Fetching login route...");

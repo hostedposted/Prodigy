@@ -1,6 +1,11 @@
 import fetch from "node-fetch";
+import { PlayerData } from "./PlayerData";
 
 const parseJWT = (token: string) => JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+
+interface PlayerDataFromUserID {
+    [key: number]: PlayerData;
+}
 
 export const getPlayerData = async (token: string, userID?: string, { log }: { log?: boolean } = {}) => {
     if (userID) {
@@ -8,7 +13,7 @@ export const getPlayerData = async (token: string, userID?: string, { log }: { l
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        })).json() as {};
+        })).json() as PlayerDataFromUserID;
     }
     if (log) console.log("Fetching data from token...");
     const dataSite = await fetch(`https://api.prodigygame.com/game-api/v1/character/${parseJWT(token).content.userID}?isMember=0&userID=${parseJWT(token).content.userID}`, {
@@ -18,5 +23,5 @@ export const getPlayerData = async (token: string, userID?: string, { log }: { l
     });
     if (!dataSite.ok) throw new Error(`The data page request was unable to be fetched with a code of ${dataSite.status}.`);
     if (log) console.log("Successfully fetched.");
-    return await dataSite.json() as {};
+    return await dataSite.json() as PlayerData;
 };
