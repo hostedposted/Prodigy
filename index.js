@@ -69,6 +69,7 @@ async function load_defaults() {
     }
     document.getElementById("levelSelector").value = playerData.data?.level ?? 1;
     document.getElementById("goldSelector").value = playerData.data?.gold ?? 0;
+    document.getElementById("darkTowerSelector").value = playerData.data?.gold ?? 1;
     document.getElementById("loading").style.display = "none";
     document.getElementById("dashboard").style.display = "block";
     document.getElementById("firstNameSelector").selectedIndex = Array.from(document.getElementById("firstNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.first-1].data.value);
@@ -185,6 +186,20 @@ async function save() {
             "error"
         );
     }
+    if (!Number(darkTowerSelector.value)){
+        return popup(
+            "Save Error",
+            "Your Dark Tower must be set and be a number!",
+            "error"
+        );
+    }
+    if (levelSelector.value < 0) {
+        return popup(
+            "Save Error",
+            "Your Dark Tower must be a positive number!",
+            "error"
+        );
+    }
     if (!Number(goldSelector.value)) {
         return popup(
             "Save Error",
@@ -210,6 +225,7 @@ async function save() {
     let middleNames = window.gamedata.name.filter(name => name.data.type === 1);
     let lastNames = window.gamedata.name.filter(name => name.data.type === 2);
     playerData.data.level = Number(levelSelector.value);
+    playerData.data.tower = Number(darkTowerSelector.value);
     playerData.data.gold = Number(goldSelector.value);
     playerData.appearance.name.first = document.getElementById("firstNameSelector").selectedIndex + 1;
     playerData.appearance.name.middle = middleNames[document.getElementById("middleNameSelector").selectedIndex].ID;
