@@ -172,6 +172,7 @@ async function save() {
     let saveButton = document.getElementById("save");
     let levelSelector = document.getElementById("levelSelector");
     let goldSelector = document.getElementById("goldSelector");
+    let darkTowerSelector = document.getElementById("darkTowerSelector");
     if (!Number(levelSelector.value)){
         return popup(
             "Save Error",
