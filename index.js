@@ -69,7 +69,7 @@ async function load_defaults() {
     }
     document.getElementById("levelSelector").value = playerData.data?.level ?? 1;
     document.getElementById("goldSelector").value = playerData.data?.gold ?? 0;
-    document.getElementById("darkTowerSelector").value = playerData.data?.gold ?? 1;
+    document.getElementById("darkTowerSelector").value = playerData.data?.tower ?? 1;
     document.getElementById("loading").style.display = "none";
     document.getElementById("dashboard").style.display = "block";
     document.getElementById("firstNameSelector").selectedIndex = Array.from(document.getElementById("firstNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.first-1].data.value);
@@ -194,7 +194,7 @@ async function save() {
             "error"
         );
     }
-    if (levelSelector.value < 0) {
+    if (darkTowerSelector.value < 0) {
         return popup(
             "Save Error",
             "Your Dark Tower must be a positive number!",
