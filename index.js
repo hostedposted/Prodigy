@@ -21,7 +21,7 @@ function eraseCookie(name) {
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-if (!window.location.href.includes("login.html")) {
+if (!window.location.href.includes("login")) {
     if (
         getCookie("username") === null ||
         getCookie("password") === null
@@ -65,7 +65,7 @@ async function load_defaults() {
             "Please complete tutorial before using the dashboard.",
             "error"
         )
-        return window.location.href = "/login.html";
+        return window.location.href = "/login";
     }
     document.getElementById("levelSelector").value = playerData.data?.level ?? 1;
     document.getElementById("goldSelector").value = playerData.data?.gold ?? 0;
