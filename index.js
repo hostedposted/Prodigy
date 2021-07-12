@@ -26,14 +26,14 @@ if (!window.location.href.includes("login.html")) {
         getCookie("username") === null ||
         getCookie("password") === null
     ) {
-        window.location.href = "/login.html";
+        window.location.href = "/login";
     }
 } else {
     if (
         getCookie("username") !== null ||
         getCookie("password") !== null
     ) {
-        window.location.href = "/index.html";
+        window.location.href = "/index";
     }
 }
 
