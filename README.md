@@ -2,7 +2,7 @@
 # Prodigy Online Dashboard
 [Live website](https://prodigy-dashboard.hostedposted.com/)
 
-Prodigy Online Dashboard is an online application to hack Prodigy online.
+Prodigy Online Dashboard is an online application to hack [Prodigy](https://prodigygame.com).
 
 ## Installation
 
