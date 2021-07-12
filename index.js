@@ -189,6 +189,20 @@ async function save() {
             "error"
         );
     }
+    if (!Number(goldSelector.value)) {
+        return popup(
+            "Save Error",
+            "Your gold must be set and be a number!",
+            "error"
+        );
+    }
+    if (goldSelector.value < 0) {
+        return popup(
+            "Save Error",
+            "Your gold must be a positive number!",
+            "error"
+        );
+    }
     if (!Number(darkTowerSelector.value)){
         return popup(
             "Save Error",
@@ -214,20 +228,6 @@ async function save() {
         return popup(
             "Save Error",
             "Your bounty points must be a positive number!",
-            "error"
-        );
-    }
-    if (!Number(goldSelector.value)) {
-        return popup(
-            "Save Error",
-            "Your gold must be set and be a number!",
-            "error"
-        );
-    }
-    if (goldSelector.value < 0) {
-        return popup(
-            "Save Error",
-            "Your gold must be a positive number!",
             "error"
         );
     }
