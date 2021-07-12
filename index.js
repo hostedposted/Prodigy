@@ -49,6 +49,7 @@ async function init() {
 
 
 async function load_defaults() {
+    // Get player data
     const { token } = window.token;
     const playerData = await (
         await fetch(`https://prodigy-api.hostedposted.com/player/`, {
@@ -57,6 +58,8 @@ async function load_defaults() {
             },
         })
     ).json();
+
+    // Check for account state
     if (playerData.data === null) {
         eraseCookie("username");
         eraseCookie("password");
