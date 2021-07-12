@@ -44,11 +44,11 @@
                 <div class="ui divider"></div>
                 <div class="ui input" style="background-color: #444444; border: none">
                     <div class="ui bottom attached label" style="text-align: center">Level</div>
-                    <input id="levelSelector" type="text" placeholder="Ex: 50" style="text-align: center; background-color: #ececec; border: none" />
+                    <input id="levelSelector" type="number" min="1" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 50" style="background-color: #ececec; border: none" />
                 </div>
                 <div class="ui input">
                     <div class="ui bottom attached label" style="text-align: center">Gold</div>
-                    <input id="goldSelector" type="text" placeholder="Ex: 20000" style="text-align: center; margin-top: 4%; background-color: #ececec; border: none" />
+                    <input id="goldSelector" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 20000" style="margin-top: 4%; background-color: #ececec; border: none" />
                 </div>
                 <div class="ui input">
                     <div class="ui bottom attached label" style="text-align: center">First Name</div>
@@ -80,9 +80,9 @@
                 </div>
             </div>
             <!-- Player hacks end -->
-            <!-- <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
+            <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
 
-            <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
+            <!-- <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
                 <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Currency Hacks</h3>
                 <div class="ui divider"></div>
                 <div class="ui input" style="background-color: #444444; border: none">
@@ -94,31 +94,63 @@
                           </tr>
                         </thead>
                         <tbody id="currencyTableBody">
-                          <tr>
-                            <td>Idk</td>
-                            <td>
-                                <div class="ui input">
-                                    <input style="padding: 1%; border: none;" type="text" placeholder="Ex: 1000">
-                                </div>
-                            </td>
-                          </tr>
+                            <tr>
+                                <td>Hot-Hots</td>
+                                <td>
+                                    <div class="ui input">
+                                        <input id="Hot-Hots_Input" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 1000" style="padding: 1%; border: none;">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Florans</td>
+                                <td>
+                                    <div class="ui input">
+                                        <input id="Florans_Input" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 1000" style="padding: 1%; border: none;">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Yars</td>
+                                <td>
+                                    <div class="ui input">
+                                        <input id="Yars_Input" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 1000" style="padding: 1%; border: none;">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Shivers</td>
+                                <td>
+                                    <div class="ui input">
+                                        <input id="Shivers_Input" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 1000" style="padding: 1%; border: none;">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Aeros</td>
+                                <td>
+                                    <div class="ui input">
+                                        <input id="Aeros_Input" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 1000" style="padding: 1%; border: none;">
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                       </table>
                 </div> 
             </div> -->
             <!-- Currency hacks end -->
             
-            <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
+            <!-- <div class="ui divider" style="width: 30%; margin: 0 auto;"></div> -->
             <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
                 <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Other Hacks</h3>
                 <div class="ui divider"></div>
                 <div class="ui input" style="background-color: #444444; border: none">
                     <div class="ui bottom attached label" style="text-align: center">Dark Tower Floor</div>
-                    <input id="darkTowerSelector" type="text" placeholder="Ex: 50" style="text-align: center; background-color: #ececec; border: none" />
+                    <input id="darkTowerSelector" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 50" style="background-color: #ececec; border: none" />
                 </div>
                  <div class="ui input" style="background-color: #444444; border: none">
                     <div class="ui bottom attached label" style="text-align: center">Bounty Points</div>
-                    <input id="bountyPointsSelector" type="text" placeholder="Ex: 50" style="text-align: center; background-color: #ececec; border: none; margin-top: 4%" />
+                    <input id="bountyPointsSelector" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 50" style="background-color: #ececec; border: none; margin-top: 4%" />
                 </div>
             
             </div>
