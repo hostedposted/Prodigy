@@ -127,7 +127,7 @@ async function login(event) {
         submitButton.className = "fluid ui primary button";
         return popup("Login Error", "Invalid username or password!", "error");
     }
-    window.location.href = "/index.html"
+    window.location.href = "/index"
 }
 
 async function load_names() {
@@ -269,7 +269,7 @@ async function save() {
 function logout() {
     eraseCookie("username");
     eraseCookie("password");
-    window.location.href = "/login.html";
+    window.location.href = "/login";
 }
 
 async function getGameData() {
