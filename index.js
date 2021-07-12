@@ -21,19 +21,19 @@ function eraseCookie(name) {
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-if (!window.location.href.includes("login.html")) {
+if (!window.location.href.includes("login")) {
     if (
         getCookie("username") === null ||
         getCookie("password") === null
     ) {
-        window.location.href = "/login.html";
+        window.location.href = "/login";
     }
 } else {
     if (
         getCookie("username") !== null ||
         getCookie("password") !== null
     ) {
-        window.location.href = "/index.html";
+        window.location.href = "/index";
     }
 }
 
@@ -65,7 +65,7 @@ async function load_defaults() {
             "Please complete tutorial before using the dashboard.",
             "error"
         )
-        return window.location.href = "/login.html";
+        return window.location.href = "/login";
     }
 
     // Player hacks
@@ -151,7 +151,7 @@ async function login(event) {
         submitButton.className = "fluid ui primary button";
         return popup("Login Error", "Invalid username or password!", "error");
     }
-    window.location.href = "/index.html"
+    window.location.href = "/index"
 }
 
 async function load_names() {
@@ -245,7 +245,7 @@ async function save() {
 function logout() {
     eraseCookie("username");
     eraseCookie("password");
-    window.location.href = "/login.html";
+    window.location.href = "/login";
 }
 
 async function getGameData() {
