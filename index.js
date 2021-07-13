@@ -1,3 +1,6 @@
+const defaults = []
+const hacks = []
+
 function setCookie(name,value,days) {
     var expires = "";
     if (days) {
@@ -37,6 +40,53 @@ if (!window.location.href.includes("login")) {
     }
 }
 
+class Hack {
+    /**
+     * @param {string} id Id of the hack
+     * @param {string} name Name of the hack
+    */
+    constructor(id, name) {
+        this.element = document.getElementById(id);
+        if (!this.element) {
+            throw new Error("Element not found");
+        }
+        this.name = name;
+    }
+    /**
+     * @param {(playerData: {}, value: string | number) => {}} func Function to change playerData
+    */
+    save(func = (playerData, value) => {return playerData}) {
+        const self = this;
+        hacks.push(playerData => {
+            const element = self.element;
+            if (element.tagName.toLowerCase() === "input") {
+                if (element.value === "") {
+                    return popup(
+                        "Save Error",
+                        `Your ${self.name} must be set!`,
+                        "error"
+                    );
+                }
+                playerData = func(playerData, element.value);
+            } else if (element.tagName.toLowerCase() === "select") {
+                playerData = func(playerData, element.selectedIndex);
+            }
+            return playerData;
+        });
+        return this;
+    }
+    /**
+     * @param {(playerData: {}, element: HTMLElement) => {}} func Function to change playerData
+    */
+    load_default(func = (playerData, element) => {return playerData}) {
+        const element = this.element;
+        defaults.push(playerData => {
+            return func(playerData, element);
+        });
+        return this;
+    }
+}
+
 async function init() {
     window.gamedata = await getGameData();
     await load_names();
@@ -44,6 +94,60 @@ async function init() {
     window.password = getCookie("password");
     window.token = await tokenify(window.username, window.password);
     document.getElementById("username").innerHTML = window.username;
+    new Hack("levelSelector", "level").save((playerData, value) => {
+        playerData.data.level = parseInt(value) || 1;
+    }).load_default((playerData, element) => {
+        element.value = playerData.data.level;
+    })
+    
+    new Hack("goldSelector", "gold").save((playerData, value) => {
+        playerData.data.gold = parseInt(value) || 0;
+    }).load_default((playerData, element) => {
+        element.value = playerData.data.gold;
+    })
+    
+    new Hack("darkTowerSelector", "Dark Tower").save((playerData, value) => {
+        playerData.data.tower = parseInt(value) || 0;
+    }).load_default((playerData, element) => {
+        element.value = playerData.data.tower;
+    })
+    
+    new Hack("bountyPointsSelector", "bounty points").save((playerData, value) => {
+        playerData.data.bountyScore = parseInt(value) || 0;
+    }).load_default((playerData, element) => {
+        element.value = playerData.data.bountyScore;
+    })
+    
+    new Hack("firstNameSelector", "name").save((playerData, value) => {
+        playerData.appearance.name.first = value + 1;
+    }).load_default((playerData, element) => {
+        element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.first-1].data.value);
+    })
+    
+    new Hack("middleNameSelector", "middle name").save((playerData, value) => {
+        const middleNames = window.gamedata.name.filter(name => name.data.type === 1);
+        playerData.appearance.name.middle = middleNames[value].ID;
+    }).load_default((playerData, element) => {
+        element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.middle-1].data.value);
+    })
+    
+    new Hack("lastNameSelector", "last name").save((playerData, value) => {
+        const lastNames = window.gamedata.name.filter(name => name.data.type === 2);
+        playerData.appearance.name.last = lastNames[value].ID;
+    }).load_default((playerData, element) => {
+        element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.last-1].data.value);
+    })
+    
+    new Hack("nickNameSelector", "nick name").save((playerData, value) => {
+        playerData.appearance.name.nick = value + 1;
+    }).load_default((playerData, element) => {
+        if (playerData.appearance.name.nick === 0) {
+            element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.nickname[playerData.appearance.name.nick-1].data.value);
+        } else {
+            element.selectedIndex = element.options.length - 1;
+        }
+    })
+    
     await load_defaults();
 }
 
@@ -71,11 +175,9 @@ async function load_defaults() {
         return window.location.href = "/login";
     }
 
-    // Player hacks
-    document.getElementById("levelSelector").value = playerData.data?.level ?? 1;
-    document.getElementById("goldSelector").value = playerData.data?.gold ?? 0;
-    document.getElementById("darkTowerSelector").value = playerData.data?.tower ?? 1;
-    document.getElementById("bountyPointsSelector").value = playerData.data?.bountyScore ?? 1;
+    defaults.forEach(func => {
+        func(playerData);
+    })
 
     /* Currency IDs
     "Hot-Hots": 12,
@@ -197,39 +299,7 @@ async function load_names() {
 }
 
 async function save() {
-    let saveButton = document.getElementById("save");
-    let levelSelector = document.getElementById("levelSelector");
-    let goldSelector = document.getElementById("goldSelector");
-    let darkTowerSelector = document.getElementById("darkTowerSelector");
-    let bountyPointsSelector = document.getElementById("bountyPointsSelector");
-    if (levelSelector.value === "") {
-        return popup(
-            "Save Error",
-            "Your level must be set!",
-            "error"
-        );
-    }
-    if (goldSelector.value === "") {
-        return popup(
-            "Save Error",
-            "Your gold must be set!",
-            "error"
-        );
-    }
-    if (darkTowerSelector.value === ""){
-        return popup(
-            "Save Error",
-            "Your Dark Tower must be set!",
-            "error"
-        );
-    }
-    if (bountyPointsSelector.value === ""){
-        return popup(
-            "Save Error",
-            "Your bounty points must be set!",
-            "error"
-        );
-    }
+    const saveButton = document.getElementById("save");
     saveButton.className = "ui teal loading button";
     const { token } = window.token;
     const playerRequest = await fetch(`https://prodigy-api.hostedposted.com/player/`, {
@@ -238,16 +308,10 @@ async function save() {
         }
     });
     const playerData = await playerRequest.json();
-    let middleNames = window.gamedata.name.filter(name => name.data.type === 1);
-    let lastNames = window.gamedata.name.filter(name => name.data.type === 2);
-    playerData.data.level = Number(levelSelector.value);
-    playerData.data.tower = Number(darkTowerSelector.value);
-    playerData.data.bountyScore = Number(bountyPointsSelector.value);
-    playerData.data.gold = Number(goldSelector.value);
-    playerData.appearance.name.first = document.getElementById("firstNameSelector").selectedIndex + 1;
-    playerData.appearance.name.middle = middleNames[document.getElementById("middleNameSelector").selectedIndex].ID;
-    playerData.appearance.name.last = lastNames[document.getElementById("lastNameSelector").selectedIndex].ID;
-    playerData.appearance.name.nick = document.getElementById("nickNameSelector").selectedIndex + 1;
+    
+    hacks.forEach(hack => {
+        hack(playerData);
+    })
 
     await fetch(
         `https://prodigy-api.hostedposted.com/player/`,
