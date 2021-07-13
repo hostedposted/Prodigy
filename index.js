@@ -105,6 +105,11 @@ async function init() {
     }).load_default((playerData, element) => {
         element.value = playerData.data.gold;
     })
+    new Hack("gradeSelector", "grade").save((playerData, value) => {
+        playerData.data.grade = parseInt(value) || 0;
+    }).load_default((playerData, element) => {
+        element.value = playerData.data.grade;
+    })
     
     new Hack("darkTowerSelector", "Dark Tower").save((playerData, value) => {
         playerData.data.tower = parseInt(value) || 0;
