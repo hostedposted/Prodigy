@@ -202,10 +202,59 @@ async function save() {
     let goldSelector = document.getElementById("goldSelector");
     let darkTowerSelector = document.getElementById("darkTowerSelector");
     let bountyPointsSelector = document.getElementById("bountyPointsSelector");
-    if (!Number(levelSelector)) {
+    if (!Number(levelSelector.value)) {
         return popup(
             "Save Error",
             "Your level must be set and be a number!",
+            "error"
+        );
+    }
+    if (levelSelector.value < 0) {
+        return popup(
+            "Save Error",
+            "Your level must be a positive number!",
+            "error"
+        );
+    }
+    if (!Number(goldSelector.value)) {
+        return popup(
+            "Save Error",
+            "Your gold must be set and be a number!",
+            "error"
+        );
+    }
+    if (goldSelector.value < 0) {
+        return popup(
+            "Save Error",
+            "Your gold must be a positive number!",
+            "error"
+        );
+    }
+    if (!Number(darkTowerSelector.value)){
+        return popup(
+            "Save Error",
+            "Your Dark Tower must be set and be a number!",
+            "error"
+        );
+    }
+    if (darkTowerSelector.value < 0) {
+        return popup(
+            "Save Error",
+            "Your Dark Tower must be a positive number!",
+            "error"
+        );
+    }
+    if (!Number(bountyPointsSelector.value)){
+        return popup(
+            "Save Error",
+            "Your bounty points must be set and be a number!",
+            "error"
+        );
+    }
+    if (bountyPointsSelector.value < 0) {
+        return popup(
+            "Save Error",
+            "Your bounty points must be a positive number!",
             "error"
         );
     }
