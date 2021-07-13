@@ -202,59 +202,31 @@ async function save() {
     let goldSelector = document.getElementById("goldSelector");
     let darkTowerSelector = document.getElementById("darkTowerSelector");
     let bountyPointsSelector = document.getElementById("bountyPointsSelector");
-    if (!Number(levelSelector.value)) {
+    if (levelSelector.value === "") {
         return popup(
             "Save Error",
-            "Your level must be set and be a number!",
+            "Your level must be set!",
             "error"
         );
     }
-    if (levelSelector.value < 0) {
+    if (goldSelector.value === "") {
         return popup(
             "Save Error",
-            "Your level must be a positive number!",
+            "Your gold must be set!",
             "error"
         );
     }
-    if (!Number(goldSelector.value)) {
+    if (darkTowerSelector.value === ""){
         return popup(
             "Save Error",
-            "Your gold must be set and be a number!",
+            "Your Dark Tower must be set!",
             "error"
         );
     }
-    if (goldSelector.value < 0) {
+    if (bountyPointsSelector.value === ""){
         return popup(
             "Save Error",
-            "Your gold must be a positive number!",
-            "error"
-        );
-    }
-    if (!Number(darkTowerSelector.value)){
-        return popup(
-            "Save Error",
-            "Your Dark Tower must be set and be a number!",
-            "error"
-        );
-    }
-    if (darkTowerSelector.value < 0) {
-        return popup(
-            "Save Error",
-            "Your Dark Tower must be a positive number!",
-            "error"
-        );
-    }
-    if (!Number(bountyPointsSelector.value)){
-        return popup(
-            "Save Error",
-            "Your bounty points must be set and be a number!",
-            "error"
-        );
-    }
-    if (bountyPointsSelector.value < 0) {
-        return popup(
-            "Save Error",
-            "Your bounty points must be a positive number!",
+            "Your bounty points must be set!",
             "error"
         );
     }
