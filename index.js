@@ -49,6 +49,7 @@ async function init() {
 
 
 async function load_defaults() {
+    // Get player data
     const { token } = window.token;
     const playerData = await (
         await fetch(`https://prodigy-api.hostedposted.com/player/`, {
@@ -57,6 +58,8 @@ async function load_defaults() {
             },
         })
     ).json();
+
+    // Check for account state
     if (playerData.data === null) {
         eraseCookie("username");
         eraseCookie("password");
@@ -67,12 +70,35 @@ async function load_defaults() {
         )
         return window.location.href = "/login";
     }
+
+    // Player hacks
     document.getElementById("levelSelector").value = playerData.data?.level ?? 1;
     document.getElementById("goldSelector").value = playerData.data?.gold ?? 0;
     document.getElementById("darkTowerSelector").value = playerData.data?.tower ?? 1;
     document.getElementById("bountyPointsSelector").value = playerData.data?.bountyScore ?? 1;
+
+    /* Currency IDs
+    "Hot-Hots": 12,
+    "Florans": 13,
+    "Yars": 14,
+    "Shivers": 15,
+    "Aeros": 16,
+    */
+
+    // Currencies
+    /*
+    document.getElementById("Hot-Hots_Input").value = playerData.inventory?.currency[12 - 1].N ?? 0;
+    document.getElementById("Florans_Input").value = playerData.inventory?.currency[13 - 1].N ?? 0;
+    document.getElementById("Yars_Input").value = playerData.inventory?.currency[14 - 1].N ?? 0;
+    document.getElementById("Shivers_Input").value = playerData.inventory?.currency[15 - 1].N ?? 0;
+    document.getElementById("Aeros_Input").value = playerData.inventory?.currency[16 - 1].N ?? 0;
+    */
+
+    // Finishing
     document.getElementById("loading").style.display = "none";
     document.getElementById("dashboard").style.display = "block";
+
+    // Name selectors
     document.getElementById("firstNameSelector").selectedIndex = Array.from(document.getElementById("firstNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.first-1].data.value);
     document.getElementById("middleNameSelector").selectedIndex = Array.from(document.getElementById("middleNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.middle-1].data.value);
     document.getElementById("lastNameSelector").selectedIndex = Array.from(document.getElementById("lastNameSelector").options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.last-1].data.value);
@@ -81,6 +107,7 @@ async function load_defaults() {
     } else {
         document.getElementById("nickNameSelector").selectedIndex = document.getElementById("nickNameSelector").options.length - 1;
     }
+
 }
 
 async function tokenify(username, password) {
@@ -175,59 +202,31 @@ async function save() {
     let goldSelector = document.getElementById("goldSelector");
     let darkTowerSelector = document.getElementById("darkTowerSelector");
     let bountyPointsSelector = document.getElementById("bountyPointsSelector");
-    if (!Number(levelSelector.value)){
+    if (levelSelector.value === "") {
         return popup(
             "Save Error",
-            "Your level must be set and be a number!",
+            "Your level must be set!",
             "error"
         );
     }
-    if (levelSelector.value < 0) {
+    if (goldSelector.value === "") {
         return popup(
             "Save Error",
-            "Your level must be a positive number!",
+            "Your gold must be set!",
             "error"
         );
     }
-    if (!Number(goldSelector.value)) {
+    if (darkTowerSelector.value === ""){
         return popup(
             "Save Error",
-            "Your gold must be set and be a number!",
+            "Your Dark Tower must be set!",
             "error"
         );
     }
-    if (goldSelector.value < 0) {
+    if (bountyPointsSelector.value === ""){
         return popup(
             "Save Error",
-            "Your gold must be a positive number!",
-            "error"
-        );
-    }
-    if (!Number(darkTowerSelector.value)){
-        return popup(
-            "Save Error",
-            "Your Dark Tower must be set and be a number!",
-            "error"
-        );
-    }
-    if (darkTowerSelector.value < 0) {
-        return popup(
-            "Save Error",
-            "Your Dark Tower must be a positive number!",
-            "error"
-        );
-    }
-    if (!Number(bountyPointsSelector.value)){
-        return popup(
-            "Save Error",
-            "Your bounty points must be set and be a number!",
-            "error"
-        );
-    }
-    if (bountyPointsSelector.value < 0) {
-        return popup(
-            "Save Error",
-            "Your bounty points must be a positive number!",
+            "Your bounty points must be set!",
             "error"
         );
     }
@@ -249,6 +248,7 @@ async function save() {
     playerData.appearance.name.middle = middleNames[document.getElementById("middleNameSelector").selectedIndex].ID;
     playerData.appearance.name.last = lastNames[document.getElementById("lastNameSelector").selectedIndex].ID;
     playerData.appearance.name.nick = document.getElementById("nickNameSelector").selectedIndex + 1;
+
     await fetch(
         `https://prodigy-api.hostedposted.com/player/`,
         {
