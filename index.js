@@ -90,6 +90,7 @@ class Hack {
 async function init() {
     window.gamedata = await getGameData();
     await load_names();
+    await load_currency();
     window.username = getCookie("username");
     window.password = getCookie("password");
     window.token = await tokenify(window.username, window.password);
@@ -301,6 +302,35 @@ async function load_names() {
     option.value = "None";
     option.innerHTML = "None"
     nickNameSelector.appendChild(option);
+}
+
+async function load_currency() {
+    let currencyTableBody = document.getElementById("currencyTableBody");
+    let currencies = gamedata.currency;
+    for (let i = 1; i < currencies.length; i++) {
+        let row = document.createElement("tr");
+        currencyTableBody.appendChild(row);
+        let rowTitle = document.createElement("td");
+        rowTitle.innerHTML = currencies[i].name;
+        row.appendChild(rowTitle);
+        let rowDescription = document.createElement("td");
+        row.appendChild(rowDescription);
+        let rowDiv = document.createElement("div");
+        rowDiv.className = "ui input";
+        rowDescription.appendChild(rowDiv);
+        let rowInput = document.createElement("input");
+        rowInput.type = "number";
+        rowInput.min = "0";
+        rowInput.oninput = function(){this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null};
+        rowInput.placeholder = "Disabled";
+        rowInput.style.padding = "1%";
+        rowInput.style.border = "none";
+        rowDiv.appendChild(rowInput);
+    }
+    let inputs = document.getElementById("currencyTableBody").getElementsByTagName('*');
+    for (let i = 0; i < inputs.length; i++){
+     inputs[i].disabled = true;
+    }
 }
 
 async function save() {
