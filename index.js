@@ -53,7 +53,7 @@ class Hack {
         this.name = name;
     }
     /**
-     * @param {(playerData: {}, value: string | number) => {}} func Function to change playerData
+     * @param {(playerData: {}, value: string | number, index?: number | undefined) => {}} func Function to change playerData
     */
     save(func = (playerData, value) => {return playerData}) {
         const self = this;
@@ -70,17 +70,34 @@ class Hack {
                 playerData = func(playerData, element.value);
             } else if (element.tagName.toLowerCase() === "select") {
                 playerData = func(playerData, element.selectedIndex);
+            } else if (element.tagName.toLowerCase() === "tbody") {
+                const inputs = element.getElementsByTagName("input");
+                for (let i = 0; i < inputs.length; i++) {
+                    const input = inputs[i];
+                    if (input.value === "") {
+                        input.value = "0";
+                    }
+                    func(playerData, input.value, i)
+                }
             }
             return playerData;
         });
         return this;
     }
     /**
-     * @param {(playerData: {}, element: HTMLElement) => {}} func Function to change playerData
+     * @param {(playerData: {}, element: HTMLElement, index?: number | undefined) => {}} func Function to change playerData
     */
     load_default(func = (playerData, element) => {return playerData}) {
         const element = this.element;
         defaults.push(playerData => {
+            if (element.tagName.toLowerCase() === "tbody") {
+                const inputs = element.getElementsByTagName("input");
+                for (let i = 0; i < inputs.length; i++) {
+                    const input = inputs[i];
+                    playerData = func(playerData, input, i);
+                }
+                return playerData;
+            }
             return func(playerData, element);
         });
         return this;
@@ -152,6 +169,13 @@ async function init() {
         } else {
             element.selectedIndex = element.options.length - 1;
         }
+    })
+
+    new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
+        return playerData.inventory.currency[index] = parseInt(value) || 0;
+    }).load_default((playerData, element, index) => {
+        element.value = playerData.inventory.currency[index];
+        return playerData;
     })
     
     await load_defaults();
@@ -322,14 +346,9 @@ async function load_currency() {
         rowInput.type = "number";
         rowInput.min = "0";
         rowInput.oninput = function(){this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null};
-        rowInput.placeholder = "Disabled";
         rowInput.style.padding = "1%";
         rowInput.style.border = "none";
         rowDiv.appendChild(rowInput);
-    }
-    let inputs = document.getElementById("currencyTableBody").getElementsByTagName('*');
-    for (let i = 0; i < inputs.length; i++){
-     inputs[i].disabled = true;
     }
 }
 
