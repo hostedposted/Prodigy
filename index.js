@@ -184,9 +184,9 @@ async function init() {
     })
 
     new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
-        return playerData.inventory.currency[index] = parseInt(value) || 0;
+        return playerData.inventory.currency[index].N = parseInt(value) || 0;
     }).load_default((playerData, element, index) => {
-        element.value = playerData.inventory.currency[index];
+        element.value = playerData.inventory.currency[index].N;
         return playerData;
     })
     
