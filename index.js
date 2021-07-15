@@ -322,6 +322,14 @@ async function load_names() {
         option.innerHTML = nickNames[i].data.value.replace("{first}", "{firstname}");
         nickNameSelector.appendChild(option);
     }
+    let petSelector = document.getElementById("petSelector");
+    let pets = window.gamedata.pet;
+    for (let i = 0; i < pets.length; i++) {
+        let option = document.createElement("option");
+        option.value = i;
+        option.innerHTML = pets[i].data.name;
+        petSelector.appendChild(option);
+    }
     let option = document.createElement("option");
     option.value = "None";
     option.innerHTML = "None"
