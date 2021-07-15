@@ -424,7 +424,6 @@ async function getGameData() {
     return await gameDataFetch.json();
 }
 async function addPet() {
-    window.gameData = await getGameData();
     var value = document.getElementById('petSelector').value;
     if (!document.getElementById('petLevel').value) return;
     const addButton = document.getElementById("addPetsSave");
@@ -455,7 +454,6 @@ async function addPet() {
 }
 
 async function getAllPets() {
-    window.gameData = await getGameData();
     var value = document.getElementById('petSelector').value;
     if (!document.getElementById('petLevel').value) return;
     const addButton = document.getElementById("getAllPets");
