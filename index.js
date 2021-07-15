@@ -424,6 +424,7 @@ async function getGameData() {
     return await gameDataFetch.json();
 }
 async function addPet() {
+    window.gameData = await getGameData();
     var value = document.getElementById('petSelector').value;
     if (!document.getElementById('petLevel').value) return;
     const addButton = document.getElementById("addPetsSave");
@@ -435,7 +436,7 @@ async function addPet() {
         }
     });
     const playerData = await playerRequest.json();
-    playerData.pets.push({'level': document.getElementById('petLevel').value, levelCaught: document.getElementById('petLevel').value, ID: parseInt(value) + 1, catchDate: Date.now()})
+    playerData.pets.push({'level': document.getElementById('petLevel').value, levelCaught: document.getElementById('petLevel').value, ID: parseInt(value) + 1, catchDate: Date.now(), foreignSpells: [window.gameData.pet[value].data.foreignSpellPools[0][0], window.gameData.pet[value].data.foreignSpellPools[1][0]]})
     await fetch(
         `https://prodigy-api.hostedposted.com/player/`,
         {
