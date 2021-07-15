@@ -471,8 +471,8 @@ async function getAllPets() {
     let pet = {
         ID: window.gameData.pet[i].ID,
         catchDate: Date.now(),
-        levelCaught: 1,
-        Level: 1e+69,
+        levelCaught: document.getElementById('petLevel').value,
+        Level: document.getElementById('petLevel').value,
         foreignSpells: [window.gameData.pet[i].data.foreignSpellPools[0][0], window.gameData.pet[i].data.foreignSpellPools[1][0]]
     }
     playerData.pets.push(pet)
