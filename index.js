@@ -239,6 +239,7 @@ async function load_defaults() {
     } else {
         document.getElementById("nickNameSelector").selectedIndex = document.getElementById("nickNameSelector").options.length - 1;
     }
+    document.getElementById("petSelector").selectedIndex = "Peeko"
 
 }
 
