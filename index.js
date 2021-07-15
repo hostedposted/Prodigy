@@ -454,6 +454,46 @@ async function addPet() {
     addButton.className = "ui teal button"
 }
 
+async function getAllPets() {
+    window.gameData = await getGameData();
+    var value = document.getElementById('petSelector').value;
+    if (!document.getElementById('petLevel').value) return;
+    const addButton = document.getElementById("getAllPets");
+    addButton.className = "ui teal loading button";
+    const { token } = window.token;
+    const playerRequest = await fetch(`https://prodigy-api.hostedposted.com/player/`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    });
+    const playerData = await playerRequest.json();
+    for (i = 0; i < window.gameData.pet.length; i++) {
+    let pet = {
+        ID: window.gameData.pet[i].ID,
+        catchDate: Date.now(),
+        levelCaught: document.getElementById('petLevel').value,
+        Level: document.getElementById('petLevel').value,
+        foreignSpells: [window.gameData.pet[i].data.foreignSpellPools[0][0], window.gameData.pet[i].data.foreignSpellPools[1][0]]
+    }
+    playerData.pets.push(pet)
+}
+    await fetch(
+        `https://prodigy-api.hostedposted.com/player/`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "content-type": "application/json",
+                accept: "*/*",
+                "accept-language": "en-US,en;q=0.9",
+            },
+            body: JSON.stringify(playerData)
+        }
+    );
+    popup("Success!", "Got all pets!", "success");
+    addButton.className = "ui teal button"
+}
+
 function popup(title, desc, status) {
     Swal.fire(title, desc, status);
 }
