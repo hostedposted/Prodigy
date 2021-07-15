@@ -414,6 +414,35 @@ async function getGameData() {
     );
     return await gameDataFetch.json();
 }
+async function addPet() {
+    var value = document.getElementById('petSelector').value;
+    if (!document.getElementById('petLevel').value) return;
+    const addButton = document.getElementById("addPetsSave");
+    addButton.className = "ui teal loading button";
+    const { token } = window.token;
+    const playerRequest = await fetch(`https://prodigy-api.hostedposted.com/player/`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    });
+    const playerData = await playerRequest.json();
+    playerData.pets.push({'level': document.getElementById('petLevel').value, levelCaught: document.getElementById('petLevel').value, ID: parseInt(value) + 1, catchDate: Date.now()})
+    await fetch(
+        `https://prodigy-api.hostedposted.com/player/`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "content-type": "application/json",
+                accept: "*/*",
+                "accept-language": "en-US,en;q=0.9",
+            },
+            body: JSON.stringify(playerData)
+        }
+    );
+    popup("Success!", "Added pet!", "success");
+    addButton.className = "ui teal button"
+}
 
 function popup(title, desc, status) {
     Swal.fire(title, desc, status);
