@@ -1,5 +1,6 @@
 const defaults = []
 const hacks = []
+var saveErrors = false
 
 function setCookie(name,value,days) {
     var expires = "";
@@ -61,11 +62,22 @@ class Hack {
             const element = self.element;
             if (element.tagName.toLowerCase() === "input") {
                 if (element.value === "") {
-                    return popup(
+                    popup(
                         "Save Error",
                         `Your ${self.name} must be set!`,
                         "error"
                     );
+                    throw new Error(`Your ${self.name} must be set!`);
+                }
+                if (self.name == "level") {
+                    if (element.value = "0") {
+                        popup(
+                            "Save Error",
+                            `Your ${self.name} must be higher than 0!`,
+                            "error"
+                        );
+                        throw new Error(`Your ${self.name} must be higher than 0!`);
+                    }
                 }
                 playerData = func(playerData, element.value);
             } else if (element.tagName.toLowerCase() === "select") {
@@ -208,23 +220,6 @@ async function load_defaults() {
     defaults.forEach(func => {
         func(playerData);
     })
-
-    /* Currency IDs
-    "Hot-Hots": 12,
-    "Florans": 13,
-    "Yars": 14,
-    "Shivers": 15,
-    "Aeros": 16,
-    */
-
-    // Currencies
-    /*
-    document.getElementById("Hot-Hots_Input").value = playerData.inventory?.currency[12 - 1].N ?? 0;
-    document.getElementById("Florans_Input").value = playerData.inventory?.currency[13 - 1].N ?? 0;
-    document.getElementById("Yars_Input").value = playerData.inventory?.currency[14 - 1].N ?? 0;
-    document.getElementById("Shivers_Input").value = playerData.inventory?.currency[15 - 1].N ?? 0;
-    document.getElementById("Aeros_Input").value = playerData.inventory?.currency[16 - 1].N ?? 0;
-    */
 
     // Finishing
     document.getElementById("loading").style.display = "none";
@@ -373,8 +368,18 @@ async function save() {
     const playerData = await playerRequest.json();
     
     hacks.forEach(hack => {
+        try {
         hack(playerData);
+        } catch(e) {
+            saveErrors = true;
+        }
     })
+
+    if (saveErrors == true) {
+        saveErrors = false;
+        return saveButton.className = "ui teal button";
+    }
+    
 
     await fetch(
         `https://prodigy-api.hostedposted.com/player/`,
