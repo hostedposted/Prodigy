@@ -118,7 +118,6 @@ class Hack {
 
 async function init() {
     window.gamedata = await getGameData();
-    await load_names();
     window.username = getCookie("username");
     window.password = getCookie("password");
     window.token = await tokenify(window.username, window.password);
@@ -129,6 +128,7 @@ async function init() {
             },
         })
     ).json();
+    await load_names();
     await load_currency();
     document.getElementById("username").innerHTML = window.username;
     new Hack("levelSelector", "level").save((playerData, value) => {
@@ -196,6 +196,10 @@ async function init() {
         element.value = playerData.inventory.currency[index].N;
         return playerData;
     })
+
+    document.getElementById("editPetSelector").onchange = function() {
+        document.getElementById("editPetLevel").value = playerData.pets[this.selectedIndex].level;
+    }
     
     await load_defaults();
 }
@@ -314,6 +318,15 @@ async function load_names() {
         option.innerHTML = pets[i].data.name;
         petSelector.appendChild(option);
     }
+    let editPetSelector = document.getElementById("editPetSelector");
+    let playerPets = playerData.pets;
+    for (let i = 0; i < playerPets.length; i++) {
+        let option = document.createElement("option");
+        option.value = i;
+        option.innerHTML = window.gamedata.pet[i].data.name;
+        editPetSelector.appendChild(option);
+    }
+    document.getElementById("editPetLevel").value = playerData.pets[0].level;
     let option = document.createElement("option");
     option.value = "None";
     option.innerHTML = "None"
@@ -458,15 +471,22 @@ async function getAllPets() {
         }
     });
     const playerData = await playerRequest.json();
+    playerData.encounter.pets = []
     for (i = 0; i < window.gameData.pet.length; i++) {
     let pet = {
         ID: window.gameData.pet[i].ID,
         catchDate: Date.now(),
         levelCaught: document.getElementById('petLevel').value,
-        Level: document.getElementById('petLevel').value,
+        level: document.getElementById('petLevel').value,
         foreignSpells: [window.gameData.pet[i].data.foreignSpellPools[0][0], window.gameData.pet[i].data.foreignSpellPools[1][0]]
     }
     playerData.pets.push(pet)
+    playerData.encounter.pets.push({
+        firstSeenDate: Date.now(),
+        ID: window.gameData.pet[i].ID,
+        timesBattled: 9e9,
+        timesRescued: 9e9
+    })
 }
     await fetch(
         `https://prodigy-api.hostedposted.com/player/`,
@@ -485,7 +505,37 @@ async function getAllPets() {
     addButton.className = "ui teal button"
 }
 
+async function editPet() {
+    const editButton = document.getElementById("editPetsSave");
+    editButton.className = "ui teal loading button";
+    const { token } = window.token;
+    const playerRequest = await fetch(`https://prodigy-api.hostedposted.com/player/`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    });
+    const playerData = await playerRequest.json();
+    const pet = document.getElementById("editPetSelector").selectedIndex;
+    const petLevel = document.getElementById("editPetLevel").value;
+    if (!petLevel) return;
+    playerData.pets[pet].level = petLevel;
+    await fetch(
+        `https://prodigy-api.hostedposted.com/player/`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "content-type": "application/json",
+                accept: "*/*",
+                "accept-language": "en-US,en;q=0.9",
+            },
+            body: JSON.stringify(playerData)
+        }
+    );
+    popup("Success!", "Edited the pet!", "success");
+    editButton.className = "ui teal button"
+}
+
 function popup(title, desc, status) {
     Swal.fire(title, desc, status);
 }
-
