@@ -73,7 +73,7 @@ class Hack {
                     )
                     throw new Error(`Your ${self.name} must be set!`)
                 }
-                if (self.name === "level") {
+                if (self.name === "level" || self.name === "grade") {
                     if (element.value === "0") {
                         popup(
                             "Save Error",
