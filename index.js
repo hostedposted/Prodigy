@@ -280,7 +280,7 @@ async function login (event) {
         submitButton.className = "fluid ui primary button"
         return popup("Login Error", "Invalid username or password!", "error")
     }
-    window.location.href = "/index"
+    window.location.href = "/index.html"
 }
 
 async function load_names () {
@@ -437,7 +437,7 @@ async function getGameData () {
 }
 async function addPet () {
     const value = document.getElementById("petSelector").value
-    if (!document.getElementById("petLevel").value) return
+    if (!document.getElementById("petLevel").value) return popup("Pet Error", "You must set a level for this pet!", "error");
     const addButton = document.getElementById("addPetsSave")
     addButton.className = "ui teal loading button"
     const { token } = window.token
@@ -461,13 +461,13 @@ async function addPet () {
             body: JSON.stringify(playerData)
         }
     )
-    popup("Success!", "Added pet!", "success")
+    popup("Success!", "Added the pet!", "success")
     addButton.className = "ui teal button"
 }
 
 async function getAllPets () {
     const value = document.getElementById("petSelector").value
-    if (!document.getElementById("petLevel").value) return
+    if (!document.getElementById("petLevel").value) return popup("Pet Error", "You must set a level for these pets!", "error");
     const addButton = document.getElementById("getAllPets")
     addButton.className = "ui teal loading button"
     const { token } = window.token
@@ -523,7 +523,11 @@ async function editPet () {
     const playerData = await playerRequest.json()
     const pet = document.getElementById("editPetSelector").selectedIndex
     const petLevel = document.getElementById("editPetLevel").value
-    if (!petLevel) return
+    if (!petLevel) {
+        editButton.className = "ui teal button"
+        popup("Pet Error", "You must set a level for this edited pet!", "error");
+        return;
+    }
     playerData.pets[pet].level = petLevel
     await fetch(
         "https://prodigy-api.hostedposted.com/player/",
