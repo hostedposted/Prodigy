@@ -83,6 +83,16 @@ class Hack {
                         throw new Error(`Your ${self.name} must be higher than 0!`)
                     }
                 }
+                if (self.name === "Dark Tower") {
+                    if (element.value > 100) {
+                        popup(
+                            "Save Error",
+                            `Your dark tower floor must be lower than 100!`,
+                            "error"
+                        )
+                        throw new Error(`Your ${self.name} must be lower than 100!`)
+                    }
+                }
                 playerData = func(playerData, element.value)
             } else if (element.tagName.toLowerCase() === "select") {
                 playerData = func(playerData, element.selectedIndex)
