@@ -196,10 +196,16 @@ async function init () {
     })
 
     new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
+        index += 1
         playerData.inventory.currency[index].N = parseInt(value) || 0
         return playerData
     }).load_default((playerData, element, index) => {
-        element.value = playerData.inventory.currency[index].N
+        const currencies = playerData.inventory.currency.filter(currency => currency.ID === index + 2)
+        if (currencies.length <= 0) {
+            element.value = 1
+            return playerData
+        }
+        element.value = currencies[0].N
         return playerData
     })
 
@@ -341,8 +347,8 @@ async function load_names () {
 
 async function load_currency () {
     const currencyTableBody = document.getElementById("currencyTableBody")
-    const currencies = gamedata.currency.filter(currency => playerData.inventory.currency.map(currency => parseInt(currency.ID)).includes(parseInt(currency.ID)))
-    for (let i = 0; i < currencies.length; i++) {
+    const currencies = gamedata.currency
+    for (let i = 1; i < currencies.length; i++) {
         const row = document.createElement("tr")
         currencyTableBody.appendChild(row)
         const rowTitle = document.createElement("td")
