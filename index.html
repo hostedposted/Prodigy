@@ -1,147 +1,169 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Standard Meta -->
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-        <!-- Discord embedding stuff -->
-        <meta content="Prodigy Account Hacker" property="og:title" />
-        <meta content="Easily hack your prodigy math game accounts online!" property="og:description" />
-        <meta content="#FF0000" data-react-helmet="true" name="theme-color" />
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-        <!-- Site Properties -->
-        <title>Dashboard</title>
-        
-        <link rel="stylesheet" type="text/css" href="./semantic/semantic.min.css" />
-        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- Discord embedding stuff -->
+    <meta content="Prodigy Account Hacker" property="og:title" />
+    <meta content="Easily hack your prodigy math game accounts online!" property="og:description" />
+    <meta content="#FF0000" data-react-helmet="true" name="theme-color" />
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="./semantic/semantic.min.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="./index.js"></script>
-    </head>
+    <!-- Site Properties -->
+    <title>Dashboard</title>
 
-    <body
-        style="background-color: #292828"
-        onload="init()"
-    >
-        <div class="ui container" id="loading" style="width: 100%; height: 100%;">
-            <div class="ui centered card" style="width: 100%; height: 100%;">
-                <div class="ui active dimmer">
-                    <div class="ui medium text loader">Loading...</div>
-                  </div>
+    <link rel="stylesheet" type="text/css" href="./semantic/semantic.min.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./semantic/semantic.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./index.js"></script>
+</head>
+
+<body style="background-color: #292828" onload="init()">
+    <div class="ui container" id="loading" style="width: 100%; height: 100%;">
+        <div class="ui centered card" style="width: 100%; height: 100%;">
+            <div class="ui active dimmer">
+                <div class="ui medium text loader">Loading...</div>
             </div>
         </div>
+    </div>
 
-        <div class="ui container" id="dashboard" style="display: none;">
-            <h1 class="ui center aligned block header" style="color: white; background-color: #444444; border: none; left: 100%; right: 100%">Prodigy Account Hacker</h1>
-            <h1 class="ui center aligned medium header" style="color: white; border: none; left: 100%; right: 100%">User: <span id="username"></h1>
-            <br />
-            <br />
-            <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
-                <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Player Hacks</h3>
-                <div class="ui divider"></div>
-                <div class="ui input" style="background-color: #444444; border: none">
-                    <div class="ui bottom attached label" style="text-align: center">Level</div>
-                    <input id="levelSelector" type="number" min="1" max="100" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 50" style="background-color: #ececec; border: none" />
-                </div>
-                <div class="ui input">
-                    <div class="ui bottom attached label" style="text-align: center">Gold</div>
-                    <input id="goldSelector" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 20000" style="margin-top: 4%; background-color: #ececec; border: none" />
-                </div>
-                <div class="ui input">
-                    <div class="ui bottom attached label" style="text-align: center">First Name</div>
-                    <div style="text-align: center">
-                        <select id="firstNameSelector" class="ui fluid selection dropdown" style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
-                        </select>
-                    </div>
-                </div>
-                <div class="ui input">
-                    <div class="ui bottom attached label" style="text-align: center">Middle Name</div>
-                    <div style="text-align: center">
-                        <select id="middleNameSelector" class="ui fluid selection dropdown" style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
-                        </select>
-                    </div>
-                </div>
-                <div class="ui input">
-                    <div class="ui bottom attached label" style="text-align: center">Last Name</div>
-                    <div style="text-align: center">
-                        <select id="lastNameSelector" class="ui fluid selection dropdown" style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
-                        </select>
-                    </div>
-                </div>
-                <div class="ui input">
-                    <div class="ui bottom attached label" style="text-align: center">Nickname</div>
-                    <div style="text-align: center">
-                        <select id="nickNameSelector" class="ui fluid selection dropdown" style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
-                        </select>
-                    </div>
+    <div class="ui container" id="dashboard" style="display: none;">
+        <h1 class="ui center aligned block header"
+            style="color: white; background-color: #444444; border: none; left: 100%; right: 100%">Prodigy Account
+            Hacker</h1>
+        <h1 class="ui center aligned medium header" style="color: white; border: none; left: 100%; right: 100%">User:
+            <span id="username"></h1>
+        <br />
+        <br />
+        <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
+            <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Player Hacks</h3>
+            <div class="ui divider"></div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Level</div>
+                <input id="levelSelector" type="number" min="1" max="100"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 50" style="background-color: #ececec; border: none" />
+            </div>
+            <div class="ui input">
+                <div class="ui bottom attached label" style="text-align: center">Gold</div>
+                <input id="goldSelector" type="number" min="0"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 20000" style="margin-top: 4%; background-color: #ececec; border: none" />
+            </div>
+            <div class="ui input">
+                <div class="ui bottom attached label" style="text-align: center">First Name</div>
+                <div style="text-align: center">
+                    <select id="firstNameSelector" class="ui fluid selection dropdown"
+                        style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
+                    </select>
                 </div>
             </div>
-            <!-- Player hacks end -->
-            <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
+            <div class="ui input">
+                <div class="ui bottom attached label" style="text-align: center">Middle Name</div>
+                <div style="text-align: center">
+                    <select id="middleNameSelector" class="ui fluid selection dropdown"
+                        style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
+                    </select>
+                </div>
+            </div>
+            <div class="ui input">
+                <div class="ui bottom attached label" style="text-align: center">Last Name</div>
+                <div style="text-align: center">
+                    <select id="lastNameSelector" class="ui fluid selection dropdown"
+                        style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
+                    </select>
+                </div>
+            </div>
+            <div class="ui input">
+                <div class="ui bottom attached label" style="text-align: center">Nickname</div>
+                <div style="text-align: center">
+                    <select id="nickNameSelector" class="ui fluid selection dropdown"
+                        style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Player hacks end -->
+        <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
 
-            <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
-                <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Currency Hacks</h3>
-                <div class="ui divider"></div>
-                <div class="ui input" style="background-color: #444444; border: none">
-                    <table id="currencyTable" class="ui compact table">
-                        <thead>
-                          <tr>
+        <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
+            <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Currency Hacks</h3>
+            <div class="ui divider"></div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <table id="currencyTable" class="ui compact table">
+                    <thead>
+                        <tr>
                             <th>Name</th>
                             <th>Amount</th>
-                          </tr>
-                        </thead>
-                        <tbody id="currencyTableBody">
-                        </tbody>
-                      </table>
-                </div> 
+                        </tr>
+                    </thead>
+                    <tbody id="currencyTableBody">
+                    </tbody>
+                </table>
             </div>
-            <!-- Currency hacks end -->
-            
-            <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
-            
-                
-                <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
-                <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Pet Hacks</h3>
-                <div class="ui divider"></div>
-                <div class="ui input">
-                    <div class="ui bottom attached label" style="text-align: center">Pet</div>
-                    <div style="text-align: center">
-                        <select id="petSelector" class="ui fluid selection dropdown" style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
-                        </select> 
-                    </div>
-                </div>
-                <div class="ui input" style="background-color: #444444; border: none">
-                    <div class="ui bottom attached label" style="text-align: center">Level</div>
-                    <input id="petLevel" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 50" style="background-color: #ececec; border: none; margin-top: 4%" />
-                </div>
-                <div class="ui teal button" id="addPetsSave" onclick="addPet()" style="margin-top: 4%;">Add Pet</div>
-                <div class="ui teal button" id="getAllPets" onclick="getAllPets()" style="margin-top: 4%;">Get all pets</div>
-            </div>
-            <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
-            <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
-                <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Other Hacks</h3>
-                <div class="ui divider"></div>
-                <div class="ui input" style="background-color: #444444; border: none">
-                    <div class="ui bottom attached label" style="text-align: center">Dark Tower Floor</div>
-                    <input id="darkTowerSelector" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 50" style="background-color: #ececec; border: none" />
-                </div>
-                <div class="ui input" style="background-color: #444444; border: none">
-                    <div class="ui bottom attached label" style="text-align: center">Bounty Points</div>
-                    <input id="bountyPointsSelector" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 50" style="background-color: #ececec; border: none; margin-top: 4%" />
-                </div>
-                <div class="ui input" style="background-color: #444444; border: none">
-                    <div class="ui bottom attached label" style="text-align: center">Grade</div>
-                    <input id="gradeSelector" type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" placeholder="Ex: 4" style="background-color: #ececec; border: none; margin-top: 4%" />
-                </div>
-            </div>
-            <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
+        </div>
+        <!-- Currency hacks end -->
 
-            <div class="ui teal button" id="save" style="position: fixed; bottom: 10px; right: 10px;" onclick="save()">Save</div>
-            <div class="ui teal button" id="logout" style="position: fixed; bottom: 10px; right: 90px; " onclick="logout()">Logout</div>
+        <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
+
+
+        <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
+            <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Pet Hacks</h3>
+            <div class="ui divider"></div>
+            <div class="ui input">
+                <div class="ui bottom attached label" style="text-align: center">Pet</div>
+                <div style="text-align: center">
+                    <select id="petSelector" class="ui fluid selection dropdown"
+                        style="margin-top: 4%; padding-bottom: 2%; margin-right: 200px; background-color: #ececec; border: none">
+                    </select>
+                </div>
+            </div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Level</div>
+                <input id="petLevel" type="number" min="0"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 50" style="background-color: #ececec; border: none; margin-top: 4%" />
+            </div>
+            <div class="ui teal button" id="addPetsSave" onclick="addPet()" style="margin-top: 4%;">Add Pet</div>
+            <div class="ui teal button" id="getAllPets" onclick="getAllPets()" style="margin-top: 4%;">Get all pets
+            </div>
+        </div>
+        <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
+        <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
+            <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Other Hacks</h3>
+            <div class="ui divider"></div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Dark Tower Floor</div>
+                <input id="darkTowerSelector" type="number" min="0"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 50" style="background-color: #ececec; border: none" />
+            </div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Bounty Points</div>
+                <input id="bountyPointsSelector" type="number" min="0"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 50" style="background-color: #ececec; border: none; margin-top: 4%" />
+            </div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Grade</div>
+                <input id="gradeSelector" type="number" min="0"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 4" style="background-color: #ececec; border: none; margin-top: 4%" />
+            </div>
+        </div>
+        <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
+
+        <div class="ui teal button" id="save" style="position: fixed; bottom: 10px; right: 10px;" onclick="save()">Save
+        </div>
+        <div class="ui teal button" id="logout" style="position: fixed; bottom: 10px; right: 90px; " onclick="logout()">
+            Logout</div>
         </span>
-    </body>
+</body>
+
 </html>
