@@ -119,10 +119,17 @@ class Hack {
 async function init() {
     window.gamedata = await getGameData();
     await load_names();
-    await load_currency();
     window.username = getCookie("username");
     window.password = getCookie("password");
     window.token = await tokenify(window.username, window.password);
+    window.playerData = await (
+        await fetch(`https://prodigy-api.hostedposted.com/player/`, {
+            headers: {
+                Authorization: `Bearer ${window.token.token}`,
+            },
+        })
+    ).json();
+    await load_currency();
     document.getElementById("username").innerHTML = window.username;
     new Hack("levelSelector", "level").save((playerData, value) => {
         playerData.data.level = parseInt(value) || 1;
@@ -195,16 +202,6 @@ async function init() {
 
 
 async function load_defaults() {
-    // Get player data
-    const { token } = window.token;
-    const playerData = await (
-        await fetch(`https://prodigy-api.hostedposted.com/player/`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-    ).json();
-
     // Check for account state
     if (playerData.data === null) {
         eraseCookie("username");
@@ -334,8 +331,8 @@ async function load_names() {
 
 async function load_currency() {
     let currencyTableBody = document.getElementById("currencyTableBody");
-    let currencies = gamedata.currency;
-    for (let i = 1; i < currencies.length; i++) {
+    let currencies = gamedata.currency.filter(currency => playerData.inventory.currency.map(currency => parseInt(currency.ID)).includes(parseInt(currency.ID)));
+    for (let i = 0; i < currencies.length; i++) {
         let row = document.createElement("tr");
         currencyTableBody.appendChild(row);
         let rowTitle = document.createElement("td");
