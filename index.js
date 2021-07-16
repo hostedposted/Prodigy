@@ -326,24 +326,12 @@ async function load_names () {
     }
     const editPetSelector = document.getElementById("editPetSelector")
     const playerPets = playerData.pets
-    if (playerPets.length > 157) {
-        for (let i = 0; i < 157; i++) {
-            const option = document.createElement("option")
-            option.value = i
-            console.log(window.gamedata.pet[i])
-            option.innerHTML = window.gamedata.pet[i].data.name
-            editPetSelector.appendChild(option)
-        }
-    } else {
-        for (let i = 1; i < playerPets.length; i++) {
-            const option = document.createElement("option")
-            option.value = i
-            console.log(window.gamedata.pet[i])
-            option.innerHTML = window.gamedata.pet[i].data.name
-            editPetSelector.appendChild(option)
-        }
+    for (let i = 0; i < playerPets.length; i++) {
+        const option = document.createElement("option")
+        option.value = i
+        option.innerHTML = window.gamedata.pet[playerPets[i].ID - 1].data.name
+        editPetSelector.appendChild(option)
     }
-    console.log(playerPets.length)
     document.getElementById("editPetLevel").value = playerData.pets[0].level
     const option = document.createElement("option")
     option.value = "None"
