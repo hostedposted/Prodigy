@@ -457,7 +457,7 @@ async function addPet () {
         }
     })
     const playerData = await playerRequest.json()
-    playerData.pets.push({ level: document.getElementById("petLevel").value, levelCaught: document.getElementById("petLevel").value, ID: parseInt(value) + 1, catchDate: Date.now(), foreignSpells: [window.gameData.pet[value].data.foreignSpellPools[0][0], window.gameData.pet[value].data.foreignSpellPools[1][0]] })
+    playerData.pets.push({ level: document.getElementById("petLevel").value, levelCaught: document.getElementById("petLevel").value, ID: parseInt(value) + 1, catchDate: Date.now(), foreignSpells: [window.gamedata.pet[value].data.foreignSpellPools[0][0], window.gamedata.pet[value].data.foreignSpellPools[1][0]] })
     await fetch(
         "https://prodigy-api.hostedposted.com/player/",
         {
@@ -487,19 +487,19 @@ async function getAllPets () {
         }
     })
     const playerData = await playerRequest.json()
-    playerData.encounter.pets = []
-    for (i = 0; i < window.gameData.pet.length; i++) {
+    playerData.encounters.pets = []
+    for (i = 0; i < window.gamedata.pet.length; i++) {
         const pet = {
-            ID: window.gameData.pet[i].ID,
+            ID: window.gamedata.pet[i].ID,
             catchDate: Date.now(),
             levelCaught: document.getElementById("petLevel").value,
             level: document.getElementById("petLevel").value,
-            foreignSpells: [window.gameData.pet[i].data.foreignSpellPools[0][0], window.gameData.pet[i].data.foreignSpellPools[1][0]]
+            foreignSpells: [window.gamedata.pet[i].data.foreignSpellPools[0][0], window.gamedata.pet[i].data.foreignSpellPools[1][0]]
         }
         playerData.pets.push(pet)
-        playerData.encounter.pets.push({
+        playerData.encounters.pets.push({
             firstSeenDate: Date.now(),
-            ID: window.gameData.pet[i].ID,
+            ID: window.gamedata.pet[i].ID,
             timesBattled: 9e9,
             timesRescued: 9e9
         })
