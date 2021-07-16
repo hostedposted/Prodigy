@@ -11,6 +11,7 @@
     <meta content="Prodigy Account Hacker" property="og:title" />
     <meta content="Easily hack your prodigy math game accounts online!" property="og:description" />
     <meta content="#FF0000" data-react-helmet="true" name="theme-color" />
+    <meta content="https://media.discordapp.net/attachments/851171575000596505/865580507425013781/pro_dash_logo.png" property="og:image">
 
     <!-- Site Properties -->
     <title>Dashboard</title>
@@ -112,36 +113,11 @@
         <!-- Currency hacks end -->
 
         <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
-        <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
-            <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Other Hacks</h3>
-            <div class="ui divider"></div>
-            <div class="ui input" style="background-color: #444444; border: none">
-                <div class="ui bottom attached label" style="text-align: center">Dark Tower Floor</div>
-                <input id="darkTowerSelector" type="number" min="0"
-                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
-                    placeholder="Ex: 50" style="background-color: #ececec; border: none" />
-            </div>
-            <div class="ui input" style="background-color: #444444; border: none">
-                <div class="ui bottom attached label" style="text-align: center">Bounty Points</div>
-                <input id="bountyPointsSelector" type="number" min="0"
-                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
-                    placeholder="Ex: 50" style="background-color: #ececec; border: none; margin-top: 4%" />
-            </div>
-            <div class="ui input" style="background-color: #444444; border: none">
-                <div class="ui bottom attached label" style="text-align: center">Grade</div>
-                <input id="gradeSelector" type="number" min="0"
-                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
-                    placeholder="Ex: 4" style="background-color: #ececec; border: none; margin-top: 4%" />
-            </div>
-        </div>
-
-        <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
-
 
         <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
             <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Pet Hacks</h3>
             <div class="ui divider"></div>
-            <p style="display: flex; justify-content: center; color: white;">Edit Pet</p>
+            <p style="display: flex; justify-content: center; color: white; font-weight: bold;">Edit Pets</p>
             <div class="ui input">
                 <div class="ui bottom attached label" style="text-align: center">Pet</div>
                 <div style="text-align: center">
@@ -158,6 +134,7 @@
             </div>
             <div class="ui teal button" id="editPetsSave" onclick="editPet()" style="margin-top: 4%;">Edit</div>
             <div class="ui divider"></div>
+            <p style="display: flex; justify-content: center; color: white; font-weight: bold;">Add Pets</p>
             <div class="ui input">
                 <div class="ui bottom attached label" style="text-align: center">Add Pet</div>
                 <div style="text-align: center">
@@ -173,10 +150,9 @@
                     placeholder="Ex: 50" style="background-color: #ececec; border: none; margin-top: 4%" />
             </div>
             <div class="ui teal button" id="addPetsSave" onclick="addPet()" style="margin-top: 4%;">Add Pet</div>
-            <div class="ui teal button" id="getAllPets" onclick="getAllPets()" style="margin-top: 4%;">Get all pets
+            <div class="ui teal button" id="getAllPets" onclick="getAllPets()" style="margin-top: 4%;">Get All Pets
             </div>
         </div>
-
         <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
         <!--
 <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
@@ -204,6 +180,28 @@
             </div>
             <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
 -->
+        <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
+            <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Other Hacks</h3>
+            <div class="ui divider"></div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Dark Tower Floor</div>
+                <input id="darkTowerSelector" type="number" min="0" max="100"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 50" style="background-color: #ececec; border: none" />
+            </div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Bounty Points</div>
+                <input id="bountyPointsSelector" type="number" min="0"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 50" style="background-color: #ececec; border: none; margin-top: 4%" />
+            </div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Grade</div>
+                <input id="gradeSelector" type="number" min="0"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 4" style="background-color: #ececec; border: none; margin-top: 4%" />
+            </div>
+        </div>
 
         <div class="ui teal button" id="save" style="position: fixed; bottom: 10px; right: 10px;" onclick="save()">Save
         </div>

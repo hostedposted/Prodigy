@@ -73,7 +73,7 @@ class Hack {
                     )
                     throw new Error(`Your ${self.name} must be set!`)
                 }
-                if (self.name === "level") {
+                if (self.name === "level" || self.name === "grade") {
                     if (element.value === "0") {
                         popup(
                             "Save Error",
@@ -81,6 +81,16 @@ class Hack {
                             "error"
                         )
                         throw new Error(`Your ${self.name} must be higher than 0!`)
+                    }
+                }
+                if (self.name === "Dark Tower") {
+                    if (element.value > 100) {
+                        popup(
+                            "Save Error",
+                            `Your dark tower floor must be lower than 100!`,
+                            "error"
+                        )
+                        throw new Error(`Your ${self.name} must be lower than 100!`)
                     }
                 }
                 playerData = func(playerData, element.value)
@@ -286,7 +296,7 @@ async function login (event) {
         submitButton.className = "fluid ui primary button"
         return popup("Login Error", "Invalid username or password!", "error")
     }
-    window.location.href = "/index"
+    window.location.href = "/index.html"
 }
 
 async function load_names () {
@@ -443,7 +453,7 @@ async function getGameData () {
 }
 async function addPet () {
     const value = document.getElementById("petSelector").value
-    if (!document.getElementById("petLevel").value) return
+    if (!document.getElementById("petLevel").value) return popup("Pet Error", "You must set a level for this pet!", "error");
     const addButton = document.getElementById("addPetsSave")
     addButton.className = "ui teal loading button"
     const { token } = window.token
@@ -453,7 +463,7 @@ async function addPet () {
         }
     })
     const playerData = await playerRequest.json()
-    playerData.pets.push({ level: document.getElementById("petLevel").value, levelCaught: document.getElementById("petLevel").value, ID: parseInt(value) + 1, catchDate: Date.now(), foreignSpells: [window.gameData.pet[value].data.foreignSpellPools[0][0], window.gameData.pet[value].data.foreignSpellPools[1][0]] })
+    playerData.pets.push({ level: document.getElementById("petLevel").value, levelCaught: document.getElementById("petLevel").value, ID: parseInt(value) + 1, catchDate: Date.now(), foreignSpells: [window.gamedata.pet[value].data.foreignSpellPools[0][0], window.gamedata.pet[value].data.foreignSpellPools[1][0]] })
     await fetch(
         "https://prodigy-api.hostedposted.com/player/",
         {
@@ -467,13 +477,13 @@ async function addPet () {
             body: JSON.stringify(playerData)
         }
     )
-    popup("Success!", "Added pet!", "success")
+    popup("Success!", "Added the pet!", "success")
     addButton.className = "ui teal button"
 }
 
 async function getAllPets () {
     const value = document.getElementById("petSelector").value
-    if (!document.getElementById("petLevel").value) return
+    if (!document.getElementById("petLevel").value) return popup("Pet Error", "You must set a level for these pets!", "error");
     const addButton = document.getElementById("getAllPets")
     addButton.className = "ui teal loading button"
     const { token } = window.token
@@ -483,19 +493,19 @@ async function getAllPets () {
         }
     })
     const playerData = await playerRequest.json()
-    playerData.encounter.pets = []
-    for (i = 0; i < window.gameData.pet.length; i++) {
+    playerData.encounters.pets = []
+    for (i = 0; i < window.gamedata.pet.length; i++) {
         const pet = {
-            ID: window.gameData.pet[i].ID,
+            ID: window.gamedata.pet[i].ID,
             catchDate: Date.now(),
             levelCaught: document.getElementById("petLevel").value,
             level: document.getElementById("petLevel").value,
-            foreignSpells: [window.gameData.pet[i].data.foreignSpellPools[0][0], window.gameData.pet[i].data.foreignSpellPools[1][0]]
+            foreignSpells: [window.gamedata.pet[i].data.foreignSpellPools[0][0], window.gamedata.pet[i].data.foreignSpellPools[1][0]]
         }
         playerData.pets.push(pet)
-        playerData.encounter.pets.push({
+        playerData.encounters.pets.push({
             firstSeenDate: Date.now(),
-            ID: window.gameData.pet[i].ID,
+            ID: window.gamedata.pet[i].ID,
             timesBattled: 9e9,
             timesRescued: 9e9
         })
@@ -529,7 +539,11 @@ async function editPet () {
     const playerData = await playerRequest.json()
     const pet = document.getElementById("editPetSelector").selectedIndex
     const petLevel = document.getElementById("editPetLevel").value
-    if (!petLevel) return
+    if (!petLevel) {
+        editButton.className = "ui teal button"
+        popup("Pet Error", "You must set a level for this edited pet!", "error");
+        return;
+    }
     playerData.pets[pet].level = petLevel
     await fetch(
         "https://prodigy-api.hostedposted.com/player/",
