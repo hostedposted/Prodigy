@@ -394,6 +394,7 @@ async function save () {
         try {
             hack(playerData)
         } catch (e) {
+            console.log(e)
             saveErrors = true
         }
     })
