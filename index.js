@@ -87,7 +87,7 @@ class Hack {
                     if (element.value > 100) {
                         popup(
                             "Save Error",
-                            `Your dark tower floor must be lower than 100!`,
+                            "Your dark tower floor must be lower than 100!",
                             "error"
                         )
                         throw new Error(`Your ${self.name} must be lower than 100!`)
@@ -453,7 +453,7 @@ async function getGameData () {
 }
 async function addPet () {
     const value = document.getElementById("petSelector").value
-    if (!document.getElementById("petLevel").value) return popup("Pet Error", "You must set a level for this pet!", "error");
+    if (!document.getElementById("petLevel").value) return popup("Pet Error", "You must set a level for this pet!", "error")
     const addButton = document.getElementById("addPetsSave")
     addButton.className = "ui teal loading button"
     const { token } = window.token
@@ -483,7 +483,7 @@ async function addPet () {
 
 async function getAllPets () {
     const value = document.getElementById("petSelector").value
-    if (!document.getElementById("petLevel").value) return popup("Pet Error", "You must set a level for these pets!", "error");
+    if (!document.getElementById("petLevel").value) return popup("Pet Error", "You must set a level for these pets!", "error")
     const addButton = document.getElementById("getAllPets")
     addButton.className = "ui teal loading button"
     const { token } = window.token
@@ -541,8 +541,8 @@ async function editPet () {
     const petLevel = document.getElementById("editPetLevel").value
     if (!petLevel) {
         editButton.className = "ui teal button"
-        popup("Pet Error", "You must set a level for this edited pet!", "error");
-        return;
+        popup("Pet Error", "You must set a level for this edited pet!", "error")
+        return
     }
     playerData.pets[pet].level = petLevel
     await fetch(
