@@ -28,22 +28,6 @@ function eraseCookie (name) {
     document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"
 }
 
-if (!window.location.href.includes("login")) {
-    if (
-        getCookie("username") === null ||
-        getCookie("password") === null
-    ) {
-        window.location.href = "/login"
-    }
-} else {
-    if (
-        getCookie("username") !== null ||
-        getCookie("password") !== null
-    ) {
-        window.location.href = "/index"
-    }
-}
-
 class Hack {
     /**
      * @param {string} id Id of the hack
@@ -565,4 +549,20 @@ async function editPet () {
 
 function popup (title, desc, status) {
     Swal.fire(title, desc, status)
+}
+
+if (!window.location.href.includes("login")) {
+    if (
+        getCookie("username") === null ||
+        getCookie("password") === null
+    ) {
+        window.location.href = "/login"
+    }
+} else {
+    if (
+        getCookie("username") !== null ||
+        getCookie("password") !== null
+    ) {
+        window.location.href = "/index"
+    }
 }
