@@ -340,6 +340,14 @@ async function load_names () {
         option.innerHTML = window.gamedata.pet[playerPets[i].ID - 1].data.name
         editPetSelector.appendChild(option)
     }
+    const faceSelector = document.getElementById("faceSelector")
+    const faces = window.gamedata.face
+    for (let i = 0; i < faces.length; i++) {
+        const option = document.createElement("option")
+        option.value = i
+        option.innerHTML = faces[i].data.name
+        faceSelector.appendChild(option)
+    }
     document.getElementById("editPetLevel").value = playerData.pets[0].level
     const option = document.createElement("option")
     option.value = "None"
