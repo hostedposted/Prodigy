@@ -116,98 +116,105 @@ class Hack {
 }
 
 async function init () {
-    window.gamedata = await getGameData()
-    window.username = getCookie("username")
-    window.password = getCookie("password")
-    window.token = await tokenify(window.username, window.password)
-    window.playerData = await (
-        await fetch("https://prodigy-api.hostedposted.com/player/", {
-            headers: {
-                Authorization: `Bearer ${window.token.token}`
+    try {
+        window.gamedata = await getGameData()
+        window.username = getCookie("username")
+        window.password = getCookie("password")
+        window.token = await tokenify(window.username, window.password)
+        window.playerData = await (
+            await fetch("https://prodigy-api.hostedposted.com/player/", {
+                headers: {
+                    Authorization: `Bearer ${window.token.token}`
+                }
+            })
+        ).json()
+        await load_names()
+        await load_currency()
+        document.getElementById("username").innerHTML = window.username
+        new Hack("levelSelector", "level").save((playerData, value) => {
+            playerData.data.level = parseInt(value) || 1
+        }).load_default((playerData, element) => {
+            element.value = playerData.data.level
+        })
+
+        new Hack("goldSelector", "gold").save((playerData, value) => {
+            playerData.data.gold = parseInt(value) || 0
+        }).load_default((playerData, element) => {
+            element.value = playerData.data.gold
+        })
+        new Hack("gradeSelector", "grade").save((playerData, value) => {
+            playerData.data.grade = parseInt(value) || 0
+        }).load_default((playerData, element) => {
+            element.value = playerData.data.grade
+        })
+
+        new Hack("darkTowerSelector", "Dark Tower").save((playerData, value) => {
+            playerData.data.tower = parseInt(value) || 0
+        }).load_default((playerData, element) => {
+            element.value = playerData.data.tower
+        })
+
+        new Hack("bountyPointsSelector", "bounty points").save((playerData, value) => {
+            playerData.data.bountyScore = parseInt(value) || 0
+        }).load_default((playerData, element) => {
+            element.value = playerData.data.bountyScore
+        })
+
+        new Hack("firstNameSelector", "name").save((playerData, value) => {
+            playerData.appearance.name.first = value + 1
+        }).load_default((playerData, element) => {
+            element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.first - 1].data.value)
+        })
+
+        new Hack("middleNameSelector", "middle name").save((playerData, value) => {
+            const middleNames = window.gamedata.name.filter(name => name.data.type === 1)
+            playerData.appearance.name.middle = middleNames[value].ID
+        }).load_default((playerData, element) => {
+            element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.middle - 1].data.value)
+        })
+
+        new Hack("lastNameSelector", "last name").save((playerData, value) => {
+            const lastNames = window.gamedata.name.filter(name => name.data.type === 2)
+            playerData.appearance.name.last = lastNames[value].ID
+        }).load_default((playerData, element) => {
+            element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.last - 1].data.value)
+        })
+
+        new Hack("nickNameSelector", "nick name").save((playerData, value) => {
+            playerData.appearance.name.nick = value + 1
+        }).load_default((playerData, element) => {
+            if (playerData.appearance.name.nick === 0) {
+                element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.nickname[playerData.appearance.name.nick - 1].data.value)
+            } else {
+                element.selectedIndex = element.options.length - 1
             }
         })
-    ).json()
-    await load_names()
-    await load_currency()
-    document.getElementById("username").innerHTML = window.username
-    new Hack("levelSelector", "level").save((playerData, value) => {
-        playerData.data.level = parseInt(value) || 1
-    }).load_default((playerData, element) => {
-        element.value = playerData.data.level
-    })
 
-    new Hack("goldSelector", "gold").save((playerData, value) => {
-        playerData.data.gold = parseInt(value) || 0
-    }).load_default((playerData, element) => {
-        element.value = playerData.data.gold
-    })
-    new Hack("gradeSelector", "grade").save((playerData, value) => {
-        playerData.data.grade = parseInt(value) || 0
-    }).load_default((playerData, element) => {
-        element.value = playerData.data.grade
-    })
-
-    new Hack("darkTowerSelector", "Dark Tower").save((playerData, value) => {
-        playerData.data.tower = parseInt(value) || 0
-    }).load_default((playerData, element) => {
-        element.value = playerData.data.tower
-    })
-
-    new Hack("bountyPointsSelector", "bounty points").save((playerData, value) => {
-        playerData.data.bountyScore = parseInt(value) || 0
-    }).load_default((playerData, element) => {
-        element.value = playerData.data.bountyScore
-    })
-
-    new Hack("firstNameSelector", "name").save((playerData, value) => {
-        playerData.appearance.name.first = value + 1
-    }).load_default((playerData, element) => {
-        element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.first - 1].data.value)
-    })
-
-    new Hack("middleNameSelector", "middle name").save((playerData, value) => {
-        const middleNames = window.gamedata.name.filter(name => name.data.type === 1)
-        playerData.appearance.name.middle = middleNames[value].ID
-    }).load_default((playerData, element) => {
-        element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.middle - 1].data.value)
-    })
-
-    new Hack("lastNameSelector", "last name").save((playerData, value) => {
-        const lastNames = window.gamedata.name.filter(name => name.data.type === 2)
-        playerData.appearance.name.last = lastNames[value].ID
-    }).load_default((playerData, element) => {
-        element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.name[playerData.appearance.name.last - 1].data.value)
-    })
-
-    new Hack("nickNameSelector", "nick name").save((playerData, value) => {
-        playerData.appearance.name.nick = value + 1
-    }).load_default((playerData, element) => {
-        if (playerData.appearance.name.nick === 0) {
-            element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.nickname[playerData.appearance.name.nick - 1].data.value)
-        } else {
-            element.selectedIndex = element.options.length - 1
-        }
-    })
-
-    new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
-        index += 1
-        playerData.inventory.currency[index].N = parseInt(value) || 0
-        return playerData
-    }).load_default((playerData, element, index) => {
-        const currencies = playerData.inventory.currency.filter(currency => currency.ID === index + 2)
-        if (currencies.length <= 0) {
-            element.value = 1
+        new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
+            index += 1
+            playerData.inventory.currency[index].N = parseInt(value) || 0
             return playerData
+        }).load_default((playerData, element, index) => {
+            const currencies = playerData.inventory.currency.filter(currency => currency.ID === index + 2)
+            if (currencies.length <= 0) {
+                element.value = 1
+                return playerData
+            }
+            element.value = currencies[0].N
+            return playerData
+        })
+
+        document.getElementById("editPetSelector").onchange = function () {
+            document.getElementById("editPetLevel").value = playerData.pets[this.selectedIndex].level
         }
-        element.value = currencies[0].N
-        return playerData
-    })
 
-    document.getElementById("editPetSelector").onchange = function () {
-        document.getElementById("editPetLevel").value = playerData.pets[this.selectedIndex].level
+        await load_defaults()
+    } catch(e) {
+        await Swal.fire("Load Error", `<pre><code>${e.toString()}</code></pre><br>Try logging in again. If this error is persistent, open an issue on our <a href='https://github.com/hostedposted/Prodigy/issues/new'>GitHub repo</a>!`, "error")
+        eraseCookie("username")
+        eraseCookie("password")
+        window.location.href = "/login.html"
     }
-
-    await load_defaults()
 }
 
 async function load_defaults () {
