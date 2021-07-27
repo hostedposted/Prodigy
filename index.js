@@ -191,13 +191,14 @@ async function init () {
         })
 
         new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
-            index += 1
-            playerData.inventory.currency[index].N = parseInt(value) || 0
+            playerData.inventory.currency.forEach(element => {
+                if (element.ID === index + 2) element.N = parseInt(value) || 0
+            })
             return playerData
         }).load_default((playerData, element, index) => {
             const currencies = playerData.inventory.currency.filter(currency => currency.ID === index + 2)
             if (currencies.length <= 0) {
-                element.value = 1
+                element.value = 0
                 return playerData
             }
             element.value = currencies[0].N
