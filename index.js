@@ -190,6 +190,13 @@ async function init () {
             }
         })
 
+        new Hack("faceSelector", "face").save((playerData, value) => {
+            const faces = window.gamedata.face
+            playerData.appearance.face = faces[value].ID
+        }).load_default((playerData, element) => {
+            element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.face[playerData.appearance.face - 1].data.name)
+        })
+
         new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
             playerData.inventory.currency.forEach(element => {
                 if (element.ID === index + 2) element.N = parseInt(value) || 0
