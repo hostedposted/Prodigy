@@ -117,6 +117,14 @@
                     </tbody>
                 </table>
             </div>
+            <div class="ui divider"></div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Amount</div>
+                <input id="setCurrencyInput" type="number" min="1"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 5000" style="background-color: #ececec; border: none; margin-top: 4%" />
+            </div>
+            <div class="ui teal button" id="setCurrencyButton" onclick="setAllCurrencies()" style="margin-top: 4%;">Set All Currencies</div>
         </div>
         <!-- Currency hacks end -->
 

@@ -563,6 +563,19 @@ async function editPet () {
     editButton.className = "ui teal button"
 }
 
+function setAllCurrencies() {
+    let setCurrencyInput = document.getElementById("setCurrencyInput")
+    let currencyTableBody = document.getElementById("currencyTableBody")
+    let currencyTableInputs = currencyTableBody.getElementsByTagName("input")
+    if (!Number(setCurrencyInput.value)) {
+        popup("Set Currency Error", "The amount of currency must be a number and set!", "error")
+        return
+    }
+    for (let i = 0; i < currencyTableInputs.length; i++) {
+        currencyTableInputs[i].value = setCurrencyInput.value
+    }
+}
+
 function popup (title, desc, status) {
     Swal.fire(title, desc, status)
 }
