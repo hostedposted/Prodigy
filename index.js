@@ -198,8 +198,11 @@ async function init () {
         })
 
         new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
-            playerData.inventory.currency.forEach(element => {
-                if (element.ID === index + 2) element.N = parseInt(value) || 0
+            playerData.inventory.currency.forEach((element, index) => {
+                if (element.ID === index + 2) {
+                    element.N = parseInt(value) || 0
+                    playerData.inventory.currency[index] = element
+                }
             })
             return playerData
         }).load_default((playerData, element, index) => {
@@ -570,10 +573,10 @@ async function editPet () {
     editButton.className = "ui teal button"
 }
 
-function setAllCurrencies() {
-    let setCurrencyInput = document.getElementById("setCurrencyInput")
-    let currencyTableBody = document.getElementById("currencyTableBody")
-    let currencyTableInputs = currencyTableBody.getElementsByTagName("input")
+function setAllCurrencies () {
+    const setCurrencyInput = document.getElementById("setCurrencyInput")
+    const currencyTableBody = document.getElementById("currencyTableBody")
+    const currencyTableInputs = currencyTableBody.getElementsByTagName("input")
     if (!Number(setCurrencyInput.value)) {
         popup("Set Currency Error", "The amount of currency must be a number and set!", "error")
         return
