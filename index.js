@@ -198,10 +198,10 @@ async function init () {
         })
 
         new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
-            playerData.inventory.currency.forEach((element, index) => {
+            playerData.inventory.currency.forEach((element, index2) => {
                 if (element.ID === index + 2) {
                     element.N = parseInt(value) || 0
-                    playerData.inventory.currency[index] = element
+                    playerData.inventory.currency[index2] = element
                 }
             })
             return playerData
