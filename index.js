@@ -198,10 +198,23 @@ async function init () {
         })
 
         new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
-            playerData.inventory.currency.forEach((element, index2) => {
+            const currencies = [...window.gamedata.currency]
+            currencies.shift()
+            currencies.forEach(element => {
                 if (element.ID === index + 2) {
                     element.N = parseInt(value) || 0
-                    playerData.inventory.currency[index2] = element
+                    let isInPlayerData = false
+                    for (let i = 0; i < playerData.inventory.currency.length; i++) {
+                        if (playerData.inventory.currency[i].ID === element.ID) {
+                            isInPlayerData = true
+                            break
+                        }
+                    }
+                    if (isInPlayerData) {
+                        playerData.inventory.currency[i].N = value
+                    } else {
+                        playerData.inventory.currency.push({ ID: element.ID, N: value })
+                    }
                 }
             })
             return playerData
